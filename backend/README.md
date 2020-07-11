@@ -6,6 +6,12 @@
 
 This project uses [Feathers](http://feathersjs.com). An open source web framework for building modern real-time applications.
 
+## Setting up MongoDB
+
+1. Use the official MongoDB guide for [installing MongoDB Community Edition](https://docs.mongodb.com/manual/administration/install-community/)
+2. You should be able to connect to your local database using MongoDB Compass with connection string `mongodb://localhost:27017/`
+3. You can try creating a user by following the official feathers.js [documentation](https://docs.feathersjs.com/guides/basics/authentication.html#registering-a-user) and using [Postman](https://www.postman.com/)
+
 ## Getting Started
 
 Getting up and running is as easy as 1, 2, 3.

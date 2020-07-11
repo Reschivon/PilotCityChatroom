@@ -1,0 +1,12 @@
+:root {
+  --dark-gray: #404142;
+  --medium-gray: #4f4f4f;
+}
+
+.header {
+  background-color: var(--dark-gray);
+}
+
+.chat-window {
+  background-color: var(--medium-gray);
+}

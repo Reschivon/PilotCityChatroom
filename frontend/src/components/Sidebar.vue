@@ -1,6 +1,8 @@
 <template>
-  <!-- Took out v-model="showDrawer" from the component below -->
-  <v-navigation-drawer :clipped="$vuetify.breakpoint.lgAndUp" app class="primary" dark>
+  <!-- Took out v-model="showDrawer" from v-navigation-drawer -->
+  <!-- Hiding the drawer with a button is not needed -->
+
+  <v-navigation-drawer app class="primary" :clipped="$vuetify.breakpoint.lgAndUp" dark>
     <v-list dense>
       <template>
         <v-text-field

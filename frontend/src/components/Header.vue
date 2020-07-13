@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app dark class="header primary">
+  <v-app-bar app dark class="header primary" :clipped-left="$vuetify.breakpoint.lgAndUp">
     <!-- <v-app-bar-nav-icon @click.stop="toggleDrawer()"></v-app-bar-nav-icon> -->
     <v-img
       alt="PilotCity Logo"

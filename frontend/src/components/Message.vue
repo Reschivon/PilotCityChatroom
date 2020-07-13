@@ -1,33 +1,42 @@
 <template>
-  <v-row dense :justify="owned()" class="mt-2">
-    <v-col cols="auto" v-if="!isOwned" align-self="end" class="pb-1">
-      <v-avatar :color="colors.green">
-        <span class="white--text headline">PC</span>
-      </v-avatar>
-    </v-col>
-    <v-col cols="auto">
-      <v-card outlined :class="rounding()" max-width="750">
-        <v-card dark flat class="secondary">
-          <v-card-text>{{ content }}</v-card-text>
-        </v-card>
-      </v-card>
-    </v-col>
-  </v-row>
+  <v-lazy>
+    <v-row dense :justify="owned()" class="mt-2">
+      <!-- Avatar -->
+      <v-col cols="auto" v-if="!isOwned" align-self="start" class="mt-5">
+        <v-avatar :color="colors.green">
+          <span class="white--text headline">PC</span>
+        </v-avatar>
+      </v-col>
+      <!-- Chat bubble -->
+      <v-col cols="auto">
+        <v-row>
+          <v-card-subtitle class="ml-4 pa-0 white--text subtitle-2" v-if="!isOwned">{{ name }}</v-card-subtitle>
+          <v-card-subtitle class="ml-2 pa-0 white--text caption" v-if="!isOwned">{{ timestamp }}</v-card-subtitle>
+        </v-row>
+        <v-row>
+          <v-card outlined :class="rounding()" max-width="750">
+            <v-card dark flat class="secondary">
+              <v-card-text class="py-3">{{ content }}</v-card-text>
+            </v-card>
+          </v-card>
+        </v-row>
+      </v-col>
+    </v-row>
+  </v-lazy>
 </template>
 
 <script>
 export default {
   name: "Message",
-  props: { isOwned: Boolean },
+  props: { isOwned: Boolean, content: String },
   data: () => {
     return {
-      // content: "This is a short message...",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
       picture: "mdi-account",
       colors: {
         green: "#6EBA7F"
-      }
+      },
+      name: "Sender's Name",
+      timestamp: "Today at 10:15 am"
     };
   },
   methods: {
@@ -36,8 +45,8 @@ export default {
     },
     rounding() {
       return this.isOwned
-        ? "rounded-tr-xl rounded-l-xl"
-        : "rounded-tl-xl rounded-r-xl";
+        ? "rounded-tr-xl rounded-l-xl mx-3"
+        : "rounded-bl-xl rounded-r-xl mx-3";
     }
   }
 };

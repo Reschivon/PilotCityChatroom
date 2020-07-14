@@ -22,14 +22,7 @@
             class="pa-6 accent"
             width="100%"
             outlined>
-                <v-row>
-                    <p class="setting-subheader">Username</p>
-                    <v-col cols="14">
-                        <v-btn @click="editUsername" color="white" icon> 
-                            <v-icon> mdi-pencil</v-icon>
-                        </v-btn>
-                    </v-col>
-                </v-row>
+                <p class="setting-subheader">Username</p>
                 <p class="setting-information">{{ user.username }}</p>
                 <p class="setting-subheader">Email</p>
                 <p class="setting-information">{{ user.email }}</p>
@@ -60,9 +53,6 @@ export default { //{{ data.myPfp }}
             console.log("picture required by code")
             return require("@/assets/pfp.png")
 */
-        },
-        editUsername(){
-            //emit something
         }
     }
 }
@@ -91,6 +81,6 @@ export default { //{{ data.myPfp }}
 }
 
 .font-Raleway{
-  font-family: Raleway;
+  font-family:Raleway;
 }
 </style>

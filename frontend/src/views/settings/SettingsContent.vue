@@ -27,12 +27,7 @@
                 <p class="setting-subheader">Email</p>
                 <p class="setting-information">{{ user.email }}</p>
                 <p class="setting-subheader">Password</p>
-                <div class="font-Raleway"><!-- font doesn't work for some reason-->
-                    <v-btn large class="font-family-Raleway">
-                        <span>Reset Password</span>
-                        <v-icon right>mdi-send</v-icon>
-                    </v-btn>
-                </div>
+                <ResetPasswordPopup />
             </v-card> 
         </v-container>
     </v-row>
@@ -41,6 +36,7 @@
 </template>
 
 <script>
+import Popup from "./Popup"
 export default { //{{ data.myPfp }}
     name: "SettingsContent",
     data() {
@@ -54,6 +50,10 @@ export default { //{{ data.myPfp }}
             return require("@/assets/pfp.png")
 */
         }
+    },
+
+    components: {
+        ResetPasswordPopup: Popup,
     }
 }
 </script>

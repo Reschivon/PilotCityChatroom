@@ -29,7 +29,12 @@
                     </v-col>
                 </v-row>
                 <p class="setting-information" v-on:updatedUsername="updateUsername($event)">{{ user.username }}</p>
-                <p class="setting-subheader">Email</p>
+                <v-row>
+                    <p class="setting-subheader ml-3">Email</p>
+                        <v-col cols="14">
+                            <EditUsername />
+                        </v-col>
+                </v-row>
                 <p class="setting-information">{{ user.email }}</p>
                 <p class="setting-subheader">Password</p>
                 <ResetPasswordPopup />

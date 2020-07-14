@@ -31,8 +31,9 @@
       <v-toolbar-title class="flex-grow-1 flex-shrink-1 d-flex justify-center" color="red">
         <span class="chat-title">{{ title }}</span>
       </v-toolbar-title>
-      <router-link to="/settings">
-        <v-btn icon>
+      <!-- Temporary settings button via the pencil sign -->
+      <router-link to="/settings"> 
+        <v-btn icon> 
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
       </router-link>

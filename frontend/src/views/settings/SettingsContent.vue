@@ -22,8 +22,13 @@
             class="pa-6 accent"
             width="100%"
             outlined>
-                <p class="setting-subheader">Username</p>
-                <p class="setting-information">{{ user.username }}</p>
+            <v-row>
+                <p class="setting-subheader ml-3">Username</p>
+                    <v-col cols="14">
+                        <EditUsername />
+                    </v-col>
+                </v-row>
+                <p class="setting-information" v-on:updatedUsername="updateUsername($event)">{{ user.username }}</p>
                 <p class="setting-subheader">Email</p>
                 <p class="setting-information">{{ user.email }}</p>
                 <p class="setting-subheader">Password</p>
@@ -37,6 +42,7 @@
 
 <script>
 import Popup from "./Popup"
+import PopupEditData from "./PopupEditData"
 export default { //{{ data.myPfp }}
     name: "SettingsContent",
     data() {
@@ -49,11 +55,17 @@ export default { //{{ data.myPfp }}
             console.log("picture required by code")
             return require("@/assets/pfp.png")
 */
+        
+        },
+        updateUsername(newUsername){
+            this.user.username = newUsername
+            console.log("new username updated")
         }
     },
 
     components: {
         ResetPasswordPopup: Popup,
+        EditUsername: PopupEditData
     }
 }
 </script>

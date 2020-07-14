@@ -1,19 +1,24 @@
 <template>
     <div>
-        
-        <v-btn large class="font-family-Raleway" @click="isClicked = true">
-            <span>Reset Password</span>
-            <v-icon right>mdi-send</v-icon> 
+        <v-btn color="white mb-6" icon @click="isClicked = true"> 
+            <v-icon> mdi-pencil</v-icon>
         </v-btn>
+
 
         <v-dialog max-width="600px"
         v-model="isClicked"
         >
         <v-card>
-            <v-card-title class="headline">Reset Password Sent</v-card-title>
+            <v-card-title class="headline">Edit Username</v-card-title>
 
             <v-card-text>
-            An email has been sent to reset your password.
+                <v-form>
+                    <v-text-field label="New Username" v-model="Username">
+                   </v-text-field>
+                   <v-btn color="success" @click="saveData(Username)">
+                       <span>Save</span>
+                    </v-btn>
+                </v-form>
             <!-- {{SettingsContent.user.email}} fix this to be dynamic later-->
             </v-card-text>
         </v-card>
@@ -24,15 +29,17 @@
 <script>
 //import SettingsContent from "./SettingsContent"
 export default {
-    name: "Popup",
+    name: "PopupEditData",
     data(){
         return{
             isClicked: false,
+            Username: "",
         }
     },
     methods:{
-        tellClicked(){
-            console.log("clicked")
+        saveData(Username){
+            console.log("Your new username is " + Username)
+            this.$emit("updatedUsername", Username)
         }
     },
 

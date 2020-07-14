@@ -18,8 +18,16 @@
       <v-toolbar-title class="ml-5">
         <span class="hidden-sm-and-down">PilotCity</span>
       </v-toolbar-title>
+      <v-toolbar-title class="flex-grow-1 flex-shrink-1 d-flex justify-center" color="red">
+        <span class="chat-title">{{ title }}</span>
+      </v-toolbar-title>
+      <router-link to="/chat">
+        <v-btn icon>
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+      </router-link>
     </v-app-bar>
-    <v-app-bar app class="header primary flex-grow-1 flex-shrink-1" dark flat>
+    <v-app-bar app class="hidden-md-and-up header primary flex-grow-1 flex-shrink-1" dark flat>
       <v-img
         alt="PilotCity Logo"
         class="shrink hidden-lg-and-up"
@@ -31,12 +39,9 @@
       <v-toolbar-title class="flex-grow-1 flex-shrink-1 d-flex justify-center" color="red">
         <span class="chat-title">{{ title }}</span>
       </v-toolbar-title>
-      <!-- Temporary settings button via the pencil sign -->
-      <router-link to="/settings"> 
-        <v-btn icon> 
-          <v-icon>mdi-pencil</v-icon>
-        </v-btn>
-      </router-link>
+      <v-btn icon>
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
     </v-app-bar>
   </div>
 </template>
@@ -46,7 +51,7 @@ export default {
   name: "Header",
   data: () => {
     return {
-      title: "# Coding Interns"
+      title: "Settings"
     };
   },
   methods: {

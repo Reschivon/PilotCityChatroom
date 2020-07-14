@@ -1,3 +1,4 @@
+
 <template>
   <!-- Took out v-model="showDrawer" from v-navigation-drawer -->
   <!-- Hiding the drawer with a button is not needed -->
@@ -65,35 +66,53 @@ export default {
   data: () => {
     return {
       // showDrawer: null,
-      items: [
-        { icon: "mdi-contacts", text: "Contacts" },
-        { icon: "mdi-history", text: "Frequently contacted" },
-        { icon: "mdi-content-copy", text: "Duplicates" },
+ items: [
+        {
+          icon: "mdi-chevron-up",
+          "icon-alt": "mdi-message",
+          text: "Favorites",
+          model: false,
+          children: [
+            {icon: "mdi-account", text: "Lin" },
+            {icon: "mdi-account", text: "Jeffery" },
+            {icon: "mdi-account", text: "Joe" },
+            {icon: "mdi-account", text: "Aditya" },
+            {icon: "mdi-account", text: "Aang" }
+          ]
+        },
+        {
+          icon: "mdi-chevron-up",
+          "icon-alt": "mdi-help-circle",
+          text: "Mentors",
+          model: false,
+          children: [
+            {icon: "mdi-account", text: "A-heel" },
+            {icon: "mdi-account", text: "Prajet" },
+            {icon: "mdi-account", text: "Dayrick" },
+            {icon: "mdi-account", text: "Keknee" },
+            {icon: "mdi-account", text: "Pokemonaca" }
+          ]
+        },
+        { icon: "mdi-cellphone-link", text: "Pilot Bot" },
         {
           icon: "mdi-chevron-up",
           "icon-alt": "mdi-chevron-down",
           text: "Labels",
           model: true,
-          children: [{ icon: "mdi-plus", text: "Create label" }]
+          children: [{ icon: "mdi-account", text: "Person 1" }]
         },
-        {
-          icon: "mdi-chevron-up",
-          "icon-alt": "mdi-chevron-down",
-          text: "More",
-          model: false,
-          children: [
-            { text: "Import" },
-            { text: "Export" },
-            { text: "Print" },
-            { text: "Undo changes" },
-            { text: "Other contacts" }
-          ]
-        },
-        { icon: "mdi-cog", text: "Settings" },
-        { icon: "mdi-message", text: "Send feedback" },
-        { icon: "mdi-help-circle", text: "Help" },
-        { icon: "mdi-cellphone-link", text: "App downloads" },
-        { icon: "mdi-keyboard", text: "Go to the old version" }
+    
+        { icon: "mdi-account", text: "Person 2" },
+        { icon: "mdi-contacts", text: "Group 1" },
+        { icon: "mdi-account", text: "Person 4" },
+        { icon: "mdi-account", text: "Person 5" },
+        { icon: "mdi-contacts", text: "Group 2" },
+        { icon: "mdi-contacts", text: "Group 3" },
+        { icon: "mdi-contacts", text: "Group 4" },
+        { icon: "mdi-account", text: "Person 6" },
+        { icon: "mdi-contacts", text: "Group 5" },
+        { icon: "mdi-contacts", text: "Group 6" },
+        { icon: "mdi-account", text: "Person 7" },
       ]
     };
   }

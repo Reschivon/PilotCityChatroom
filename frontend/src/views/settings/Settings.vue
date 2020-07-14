@@ -1,6 +1,6 @@
 <template>
 <div class="secondary fill-background font-Raleway">
-  <v-container class="secondary">
+  <v-container class="">
     <v-container class="">
       <Header/>
     </v-container>

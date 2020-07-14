@@ -1,13 +1,12 @@
 <template>
-  <div class="secondary chat">
+  <div class="secondary chat fill-height fill-width">
     <Sidebar />
-    <Header @toggleDrawer="drawer != drawer" />
-
-    <!-- Can remove toggle functionality if it is undesired -->
+    <Header />
+    <!-- @toggleDrawer="drawer != drawer" -->
 
     <!-- Main chat window -->
-    <v-main>
-      <v-container class="messages" fluid>
+    <v-main class="fill-height">
+      <v-container fluid>
         <Message
           v-for="(message, index) in messages"
           :key="index"
@@ -121,7 +120,6 @@ export default {
   methods: {
     sendMessage() {
       if (this.newMessage) {
-        console.log(this.newMessage);
         this.messages.push(this.newMessage);
         this.newMessage = null;
       }
@@ -134,7 +132,10 @@ export default {
 .chat .chat-title {
   color: #6eba7f;
 }
-/* .messages::-webkit-scrollbar {
+/* .messages {
+  overflow: auto;
+}
+.messages::-webkit-scrollbar {
   width: 3px;
 }
 .messages::-webkit-scrollbar-track {

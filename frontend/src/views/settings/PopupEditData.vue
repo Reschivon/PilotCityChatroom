@@ -37,9 +37,9 @@ export default {
         }
     },
     methods:{
-        saveData(Username){
+        saveData: function(Username){
             console.log("Your new username is " + Username)
-            this.$emit("updatedUsername", Username)
+            this.$emit('updatedUsername', Username)
         }
     },
 

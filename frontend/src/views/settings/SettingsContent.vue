@@ -27,11 +27,11 @@
                 <p class="setting-subheader">Email</p>
                 <p class="setting-information">{{ user.email }}</p>
                 <p class="setting-subheader">Password</p>
-                <div class="font-Raleway">
-                    <btn large class>
-                        <span class="font-Raleway">Reset Password</span>
+                <div class="font-Raleway"><!-- font doesn't work for some reason-->
+                    <v-btn large class="font-family-Raleway">
+                        <span>Reset Password</span>
                         <v-icon right>mdi-send</v-icon>
-                    </btn>
+                    </v-btn>
                 </div>
             </v-card> 
         </v-container>

@@ -1,15 +1,25 @@
 <template>
-    <div class="">
-        <h>Settings Page</h>
-    </div>
+<div class="secondary fill-background font-Raleway">
+  <v-container class="secondary">
+    <v-container class="">
+      <Header/>
+    </v-container>
+    <v-container class="my-5">
+        <SettingsContent/>
+    </v-container>
+  </v-container>
+</div>
 </template>
 
-<script>
 
+<script>
+import Header from "@/views/settings/SettingsHeader";
+import SettingsContent from "@/views/settings/SettingsContent";
 export default {
   name: "Settings",
   components: {
-
+    Header,
+    SettingsContent,
   },
   data () {
     return {
@@ -20,7 +30,12 @@ export default {
 </script>
 
 <style>
+.fill-background{
+  height:100%;
+  width:100%
+}
 
-
-
+.font-Raleway{
+  font-family:Raleway;
+}
 </style>

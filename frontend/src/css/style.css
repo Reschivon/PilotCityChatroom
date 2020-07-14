@@ -10,3 +10,8 @@
 .chat-window {
   background-color: var(--medium-gray);
 }
+
+.fill-background{
+  height:100%;
+  width:100%
+}

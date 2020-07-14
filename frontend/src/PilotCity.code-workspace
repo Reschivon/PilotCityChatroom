@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../../../../Vue-Firebase/ninja-smoothies"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "ninja-smoothies"
+	}
+}

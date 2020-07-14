@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-
+//import Settings from "../views/settings/Settings.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -18,6 +18,12 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Chat.vue"),
+  },
+  {
+    path: "/settings",
+    name: "Settings",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/settings/Settings.vue"),
   },
 ];
 

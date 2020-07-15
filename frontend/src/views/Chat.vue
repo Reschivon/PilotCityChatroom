@@ -1,5 +1,5 @@
 <template>
-  <div class="secondary chat fill-height fill-width">
+  <div class="chat fill-height fill-width secondary">
     <Sidebar />
     <Header />
     <!-- @toggleDrawer="drawer != drawer" -->
@@ -22,7 +22,7 @@
         append-outer-icon="mdi-send"
         auto-grow
         background-color="accent"
-        class="secondary ma-0"
+        id="text-area"
         clearable
         :color="this.colors.green"
         dark
@@ -99,14 +99,14 @@ export default {
     return {
       // drawer: true
       messages: [
-        "Lorem ipsum dolor sit amet",
-        "consectetur adipiscing elit",
-        "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-        "Ut enim ad minim veniam",
-        "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
-        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur",
-        "Excepteur sint occaecat cupidatat non proident",
-        "sunt in culpa qui officia deserunt mollit anim id est laborum"
+        "1. Lorem ipsum dolor sit amet",
+        "2. consectetur adipiscing elit",
+        "3. sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+        "4. Ut enim ad minim veniam",
+        "5. quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
+        "6. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur",
+        "7. Excepteur sint occaecat cupidatat non proident",
+        "8. sunt in culpa qui officia deserunt mollit anim id est laborum"
       ],
       newMessage: null,
       colors: {
@@ -119,9 +119,11 @@ export default {
   },
   methods: {
     sendMessage() {
-      if (this.newMessage) {
-        this.messages.push(this.newMessage);
-        this.newMessage = null;
+      let msg = this.newMessage.trim();
+      this.newMessage = null;
+      if (msg) {
+        console.log(msg);
+        this.messages.push(msg);
       }
     }
   }
@@ -131,6 +133,12 @@ export default {
 <style>
 .chat .chat-title {
   color: #6eba7f;
+}
+/* Ideally would like to change the color of 
+the text cursor, as it is hard to see
+when hovering over the text area. */
+.chat #text-area {
+  cursor: pointer;
 }
 /* .messages {
   overflow: auto;

@@ -12,7 +12,8 @@
         <v-card>
             <v-card-title class="headline">Reset Password Sent</v-card-title>
 
-            <v-card-text>
+            <v-card-text :input="email">
+            <!-- {{`An email has been sent to ${email} to reset your password.`}} -->
             An email has been sent to reset your password.
             <!-- {{SettingsContent.user.email}} fix this to be dynamic later-->
             </v-card-text>
@@ -21,13 +22,17 @@
     </div>
 </template>
 
-<script>
+<script> 
 //import SettingsContent from "./SettingsContent"
 export default {
     name: "Popup",
+    props:{
+        input:String
+    },
     data(){
         return{
             isClicked: false,
+            email: ""
         }
     },
     methods:{

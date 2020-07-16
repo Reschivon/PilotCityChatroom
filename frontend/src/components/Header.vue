@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div class="header">
     <v-app-bar
       app
       dark
       dense
-      class="header primary flex-grow-1 flex-shrink-1"
+      class="primary flex-grow-1 flex-shrink-1"
       :clipped-left="$vuetify.breakpoint.lgAndUp"
     >
       <!-- <v-app-bar-nav-icon @click.stop="toggleDrawer()"></v-app-bar-nav-icon> -->
@@ -29,8 +29,8 @@
         transition="scale-transition"
         width="26"
       />
-      <v-toolbar-title class="flex-grow-1 flex-shrink-1 d-flex justify-center" color="red">
-        <span class="chat-title">{{ title }}</span>
+      <v-toolbar-title class="flex-grow-1 flex-shrink-1 d-flex justify-center">
+        <span class="chatTitle">{{ title }}</span>
       </v-toolbar-title>
       <!-- Temporary settings button via the pencil sign -->
       <router-link to="/settings">
@@ -48,6 +48,9 @@ export default {
   data: () => {
     return {
       title: "# Coding Interns"
+      // colors: {
+      //   green: "#6eba7f"
+      // }
     };
   },
   methods: {

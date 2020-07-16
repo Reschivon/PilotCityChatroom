@@ -13,10 +13,10 @@
 
 
 <script>
-import Header from "@/components/userSettingsComponents/SettingsHeader";
-import SettingsContent from "@/components/userSettingsComponents/SettingsContent";
+import Header from "@/components/meetingSettingsComponents/SettingsHeader";
+import SettingsContent from "@/components/meetingSettingsComponents/SettingsContent";
 export default {
-  name: "Settings",
+  name: "MeetingSettings",
   components: {
     Header,
     SettingsContent,

@@ -28,6 +28,12 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/UserSettings.vue"),
   },
   {
+    path: "/settings/meeting",
+    name: "MeetingSettings",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/MeetingSettings.vue"),
+  },
+  {
     path: "/auth",
     name: "Auth",
     component: Auth,

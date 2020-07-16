@@ -1,10 +1,12 @@
 <template>
   <div class="chat primary" v-scroll:#chatWindow="scrollToBottom()">
-    <Sidebar />
-    <Header />
+    <Header :title="title" />
+    <Sidebar v-model="title" />
     <!-- @toggleDrawer="drawer != drawer" -->
 
     <!-- Chat window -->
+    <!-- Render the most recent 10 messages,
+    wrap the rest inside a v-lazy component?-->
     <v-container class="secondary pl-3 pr-6" id="chatWindow" fluid>
       <Message
         v-for="(message, index) in messages"
@@ -13,10 +15,10 @@
         :content="message"
       />
     </v-container>
-<!--  :messageData -->
+
     <!-- Send Message bar -->
     <v-app-bar app bottom class="secondary" flat fluid id="sendBar" scroll-target>
-      <v-textarea  
+      <v-textarea
         append-outer-icon="mdi-send"
         auto-grow
         background-color="accent"
@@ -96,6 +98,7 @@ export default {
   data: () => {
     return {
       // drawer: true
+      title: "# Coding Interns",
       messages: [
         "1. Lorem ipsum dolor sit amet",
         "2. consectetur adipiscing elit",
@@ -126,7 +129,7 @@ export default {
       }
     },
     scrollToBottom() {
-      this.$vuetify.goTo(9999, { duration: 1 });
+      this.$vuetify.goTo(9999, { duration: 0 });
     }
   }
   // created() {
@@ -145,9 +148,9 @@ export default {
 /* Ideally would like to change the color of 
 the text cursor, as it is hard to see
 when hovering over the text area. */
-.chat #textArea {
+/* .chat #textArea {
   cursor: pointer;
-}
+} */
 /* .messages {
   overflow: auto;
 }

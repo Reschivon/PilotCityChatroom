@@ -9,7 +9,7 @@
     <!-- Chat bubble -->
     <v-col cols="8" class="ml-2">
       <v-row :justify="owned()">
-        <v-card-subtitle class="ml-1 pa-0 white--text subtitle-2" v-if="!isOwned">{{ name }}</v-card-subtitle>
+        <v-card-subtitle class="ml-1 pa-0 white--text caption" v-if="!isOwned">{{ name }}</v-card-subtitle>
         <v-card-subtitle
           class="ml-2 mr-1 pa-0 white--text font-weight-light caption"
         >{{ timestamp }}</v-card-subtitle>

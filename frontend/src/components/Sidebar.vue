@@ -35,7 +35,13 @@
               <v-list-item-title>{{ item.text }}</v-list-item-title>
             </v-list-item-content>
           </template>
-          <v-list-item v-for="(child, i) in item.children" :key="i" link>
+          <v-list-item
+            v-for="(child, i) in item.children"
+            :key="i"
+            link
+            :value="value"
+            @click="updateTitle"
+          >
             <v-list-item-action v-if="child.icon">
               <v-icon>{{ child.icon }}</v-icon>
             </v-list-item-action>
@@ -44,7 +50,7 @@
             </v-list-item-content>
           </v-list-item>
         </v-list-group>
-        <v-list-item v-else :key="item.text" link>
+        <v-list-item v-else :key="item.text" link :value="value" @click="updateTitle">
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
@@ -60,9 +66,7 @@
 <script>
 export default {
   name: "Sidebar",
-  // props: {
-  //   drawer: Boolean
-  // },
+  props: ["value"],
   data: () => {
     return {
       // showDrawer: null,
@@ -86,15 +90,19 @@ export default {
           text: "Stakeholders",
           model: false,
           children: [
-            {icon: "mdi-account", text: "A-heel" },
-            {icon: "mdi-account", text: "Prajet" },
-            {icon: "mdi-account", text: "Dayrick" },
-            {icon: "mdi-account", text: "Keknee" },
-            {icon: "mdi-account", text: "Pokemonaca" }
-          ] 
+            { icon: "mdi-account", text: "A-heel" },
+            { icon: "mdi-account", text: "Prajet" },
+            { icon: "mdi-account", text: "Dayrick" },
+            { icon: "mdi-account", text: "Keknee" },
+            { icon: "mdi-account", text: "Pokemonaca" }
+          ]
         },
-        { icon: "mdi-cellphone-link", text: "Settings", route: '/settings/user'},
-        { icon: "mdi-blank", text: ""},
+        {
+          icon: "mdi-cellphone-link",
+          text: "Settings",
+          route: "/settings/user"
+        },
+        { icon: "mdi-blank", text: "" },
         { icon: "mdi-account", text: "Person 2" },
         { icon: "mdi-contacts", text: "Group 1" },
         { icon: "mdi-account", text: "Person 4" },
@@ -108,12 +116,11 @@ export default {
         { icon: "mdi-account", text: "Person 7" }
       ]
     };
+  },
+  methods: {
+    updateTitle(event) {
+      this.$emit("input", event.srcElement.outerText);
+    }
   }
-  // methods: {
-  //   toggleDrawer() {
-  //     console.log("Drawer prop: ", this.drawer);
-  //     this.showDrawer = this.drawer;
-  //   }
-  // },
 };
 </script>

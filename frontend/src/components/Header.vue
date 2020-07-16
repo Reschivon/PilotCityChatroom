@@ -1,3 +1,5 @@
+  <!-- TODO: add overflow property to title -->
+
 <template>
   <div class="header">
     <v-app-bar
@@ -45,9 +47,9 @@
 <script>
 export default {
   name: "Header",
+  props: ["title"],
   data: () => {
     return {
-      title: "# Coding Interns"
       // colors: {
       //   green: "#6eba7f"
       // }

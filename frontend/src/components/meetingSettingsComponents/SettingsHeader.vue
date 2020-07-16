@@ -51,7 +51,7 @@ export default {
   name: "Header",
   data: () => {
     return {
-      title: "Settings"
+      title: "MeetingSettings"
     };
   },
   methods: {

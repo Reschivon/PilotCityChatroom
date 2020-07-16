@@ -15,6 +15,7 @@
         transition="scale-transition"
         width="30"
       />
+      <!-- todo make this actually link to the generalSettingsComponents -->
       <v-toolbar-title class="ml-5">
         <span class="hidden-sm-and-down">PilotCity</span>
       </v-toolbar-title>
@@ -51,7 +52,7 @@ export default {
   name: "Header",
   data: () => {
     return {
-      title: "MeetingSettings"
+      title: "Meeting Settings"
     };
   },
   methods: {

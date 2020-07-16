@@ -10,7 +10,7 @@
         max-width="300"
       />
     </v-row>
-    <!--Settings-->
+    <!--Settings--> 
     <v-row align="center" justify="center">
       <h1 class="text-decoration-underline big-letters white--text">Settings</h1>
     </v-row>
@@ -43,8 +43,8 @@
 </template>
 
 <script>
-import Popup from "./ButtonPopup";
-import PopupEditData from "./PopupEditData";
+import Popup from "@/components/generalSettingsComponents/ButtonPopup";
+import PopupEditData from "@/components/generalSettingsComponents/PopupEditData";
 export default {
   //{{ data.myPfp }}
   name: "SettingsContent",

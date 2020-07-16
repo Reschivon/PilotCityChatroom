@@ -8,16 +8,16 @@
         <SettingsContent/>
     </v-container>
   </v-container>
-</div>
+</div> 
 </template>
 
 
 <script>
-import Header from "@/components/userSettingsComponents/SettingsHeader";
-import SettingsContent from "@/components/userSettingsComponents/SettingsContent";
+import Header from "@/components/generalSettingsComponents/SettingsHeader";
+import SettingsContent from "@/components/userSettingsComponents/UserSettingsContent";
 export default {
   name: "Settings",
-  components: {
+  components: { 
     Header,
     SettingsContent,
   },

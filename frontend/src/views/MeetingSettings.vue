@@ -7,14 +7,14 @@
     <v-container class="my-5">
         <SettingsContent/>
     </v-container>
-  </v-container>
+  </v-container> 
 </div>
 </template>
 
 
 <script>
 import Header from "@/components/meetingSettingsComponents/SettingsHeader";
-import SettingsContent from "@/components/meetingSettingsComponents/SettingsContent";
+import SettingsContent from "@/components/meetingSettingsComponents/MeetingSettingsContent";
 export default {
   name: "MeetingSettings",
   components: {

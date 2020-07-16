@@ -12,14 +12,14 @@
     </v-row>
     <!--Settings-->
     <v-row align="center" justify="center">
-      <h1 class="text-decoration-underline big-letters white--text">Settings</h1>
+      <h1 class="text-decoration-underline big-letters white--text">Meeting Settings</h1>
     </v-row>
     <!--General Settings Information-->
     <v-row align="center" justify="center">
       <v-container class="white-border">
         <v-card class="pa-6 accent" width="100%" outlined>
           <v-row>
-            <p class="setting-subheader ml-3">Username</p>
+            <p class="setting-subheader ml-3">Chat Name</p>
             <v-col cols="14">
               <!-- if you want more values from 1 v model pass an array from child -->
               <EditUsername v-model="user.username" :title="`Username`"/>
@@ -43,8 +43,8 @@
 </template>
 
 <script>
-import Popup from "./ButtonPopup";
-import PopupEditData from "./PopupEditData";
+import Popup from "@/components/generalSettingsComponents/ButtonPopup";
+import PopupEditData from "@/components/generalSettingsComponents/PopupEditData";
 export default {
   //{{ data.myPfp }}
   name: "SettingsContent",

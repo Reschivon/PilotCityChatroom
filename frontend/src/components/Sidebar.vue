@@ -66,34 +66,34 @@ export default {
   data: () => {
     return {
       // showDrawer: null,
- items: [
+      items: [
         {
           icon: "mdi-chevron-up",
           "icon-alt": "mdi-message",
           text: "Favorites",
           model: false,
           children: [
-            {icon: "mdi-account", text: "Lin" },
-            {icon: "mdi-account", text: "Jeffery" },
-            {icon: "mdi-account", text: "Joe" },
-            {icon: "mdi-account", text: "Aditya" },
-            {icon: "mdi-account", text: "Aang" }
+            { icon: "mdi-account", text: "Lin" },
+            { icon: "mdi-account", text: "Jeffery" },
+            { icon: "mdi-account", text: "Joe" },
+            { icon: "mdi-account", text: "Aditya" },
+            { icon: "mdi-account", text: "Aang" }
           ]
         },
         {
           icon: "mdi-chevron-up",
           "icon-alt": "mdi-help-circle",
-          text: "Mentors",
+          text: "Stakeholders",
           model: false,
           children: [
-            {icon: "mdi-account", text: "A-heel" },
-            {icon: "mdi-account", text: "Prajet" },
-            {icon: "mdi-account", text: "Dayrick" },
-            {icon: "mdi-account", text: "Keknee" },
-            {icon: "mdi-account", text: "Pokemonaca" }
+            { icon: "mdi-account", text: "A-heel" },
+            { icon: "mdi-account", text: "Prajet" },
+            { icon: "mdi-account", text: "Dayrick" },
+            { icon: "mdi-account", text: "Keknee" },
+            { icon: "mdi-account", text: "Pokemonaca" }
           ]
         },
-        { icon: "mdi-cellphone-link", text: "Pilot Bot" },
+        { icon: "mdi-cellphone-link", text: "Personal Assistant" },
         {
           icon: "mdi-chevron-up",
           "icon-alt": "mdi-chevron-down",
@@ -101,7 +101,7 @@ export default {
           model: true,
           children: [{ icon: "mdi-account", text: "Person 1" }]
         },
-    
+
         { icon: "mdi-account", text: "Person 2" },
         { icon: "mdi-contacts", text: "Group 1" },
         { icon: "mdi-account", text: "Person 4" },
@@ -112,7 +112,7 @@ export default {
         { icon: "mdi-account", text: "Person 6" },
         { icon: "mdi-contacts", text: "Group 5" },
         { icon: "mdi-contacts", text: "Group 6" },
-        { icon: "mdi-account", text: "Person 7" },
+        { icon: "mdi-account", text: "Person 7" }
       ]
     };
   }

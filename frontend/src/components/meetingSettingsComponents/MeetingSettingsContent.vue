@@ -22,20 +22,20 @@
             <p class="setting-subheader ml-3">Chat Name</p>
             <v-col cols="14">
               <!-- if you want more values from 1 v model pass an array from child -->
-              <EditUsername v-model="user.username" :title="`Username`"/>
+              <EditData v-model="chat.name" :title="`Chat Name`"/>
             </v-col>
           </v-row>
-          <p class="setting-information">{{ user.username }}</p>
+          <p class="setting-information">{{ chat.name }}</p>
           <v-row>
-            <p class="setting-subheader ml-3">Email</p>
+            <p class="setting-subheader ml-3">Members</p>
             <v-col cols="14">
-              <EditUsername v-model="user.email" :title="`Email`"/>
+              <EditData v-model="chat.name" :title="`Members`"/>
             </v-col>
           </v-row>
-          <p class="setting-information">{{ user.email }}</p>
-          <p class="setting-subheader" >Password</p>
+          <p class="setting-information">{{ chat.name }}</p>
+          <p class="setting-subheader">Password</p>
               <!-- #todo -->
-            <ResetPasswordPopup :email="user.email"/>
+            <ResetPasswordPopup :email="chat.name"/>
         </v-card>
       </v-container>
     </v-row>
@@ -43,17 +43,20 @@
 </template>
 
 <script>
-import Popup from "@/components/generalSettingsComponents/ButtonPopup";
+import Popup from "@/components/meetingSettingsComponents/LeaveMeetingPopup";
 import PopupEditData from "@/components/generalSettingsComponents/PopupEditData";
 export default {
   //{{ data.myPfp }}
   name: "SettingsContent",
   data() {
     return {
-      user: {
-        myPfp: "@/assets/pfp.png",
-        username: "FlexibleMonsterPoop",
-        email: "CodingInterns@pc.net"
+      chat: {
+        name: "Coding Interns",
+        members:[
+          {name: "Baby", lastName: "Joe", id: "123", pfp: "@/assets/pfp.png"},
+          {name: "Joe", lastName: "Mama", id: "345", pfp: "@/assets/pfp.png"},
+          {name: "Joe", lastName: "Papa", id: "567", pfp: "@/assets/pfp.png"},
+        ],
       },
     };
   },
@@ -72,7 +75,7 @@ export default {
 
   components: {
     ResetPasswordPopup: Popup,
-    EditUsername: PopupEditData
+    EditData: PopupEditData
   }
 };
 </script>

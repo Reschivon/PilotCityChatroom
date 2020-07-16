@@ -55,9 +55,10 @@ export default {
         titleVariable: 'members222',
         name: "Coding Interns",
         members:[
-          {name: "Baby", lastName: "Joe", id: "123", pfp: "@/assets/pfp.png"},
-          {name: "Joe", lastName: "Mama", id: "345", pfp: "@/assets/pfp.png"},
-          {name: "Joe", lastName: "Papa", id: "567", pfp: "@/assets/pfp.png"},
+          {name: "Baby", lastName: "Joe", id: "123", pfp: "@/assets/pfp.png", isMember: true},
+          {name: "Joe", lastName: "Mama", id: "345", pfp: "@/assets/pfp.png", isMember: false},
+          {name: "Joe", lastName: "Papa", id: "567", pfp: "@/assets/pfp.png", isMember: true},
+          {name: "Joe", lastName: "Guy", id: "567", pfp: "@/assets/pfp.png", isMember: true},
         ],
       },
     };

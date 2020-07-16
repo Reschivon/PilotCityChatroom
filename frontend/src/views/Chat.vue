@@ -13,6 +13,7 @@
         :key="index"
         :is-owned="index % 3 == 0"
         :content="message"
+        :name="title"
       />
     </v-container>
 

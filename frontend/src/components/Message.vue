@@ -3,7 +3,7 @@
     <!-- Avatar -->
     <v-col cols="auto" v-if="!isOwned" class="mt-5">
       <v-avatar :color="colors.green" size="40">
-        <span class="white--text">PC</span>
+        <span class="white--text">{{ initials }}</span>
       </v-avatar>
     </v-col>
     <!-- Chat bubble -->
@@ -28,16 +28,23 @@
 <script>
 export default {
   name: "Message",
-  props: { isOwned: Boolean, content: String },
+  props: { isOwned: Boolean, content: String, name: String },
   data: () => {
     return {
       picture: "mdi-account",
       colors: {
         green: "#6EBA7F"
       },
-      name: "Sender's Name",
       timestamp: "Today at 10:15 am"
     };
+  },
+  computed: {
+    initials() {
+      let names = this.name.split(" ");
+      let initials = "";
+      names.forEach(name => (initials += name.substring(0, 1)));
+      return initials;
+    }
   },
   methods: {
     owned() {

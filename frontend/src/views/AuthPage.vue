@@ -242,7 +242,11 @@ export default {
     login: '',
     snackbarType: 'success',
     snackbarMessage: '',
-    snackbar: false
+    snackbar: false,
+    confirmpassword: null,
+    lastname: null,
+    firstname: null,
+
   }),
   methods: {
     signup() {

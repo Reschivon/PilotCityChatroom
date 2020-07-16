@@ -13,10 +13,10 @@
         :content="message"
       />
     </v-container>
-
+<!--  :messageData -->
     <!-- Send Message bar -->
     <v-app-bar app bottom class="secondary" flat fluid id="sendBar" scroll-target>
-      <v-textarea
+      <v-textarea  
         append-outer-icon="mdi-send"
         auto-grow
         background-color="accent"

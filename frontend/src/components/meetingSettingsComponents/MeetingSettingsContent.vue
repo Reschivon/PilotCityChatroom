@@ -60,6 +60,7 @@ export default {
           {name: "Joe", lastName: "Papa", id: "567", pfp: "@/assets/pfp.png", isMember: true},
           {name: "Joe", lastName: "Guy", id: "567", pfp: "@/assets/pfp.png", isMember: true},
         ],
+        // currentUser: this.chat.members[0],
       },
     };
   },

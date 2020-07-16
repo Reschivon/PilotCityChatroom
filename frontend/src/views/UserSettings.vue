@@ -13,8 +13,8 @@
 
 
 <script>
-import Header from "@/views/userSettings/SettingsHeader";
-import SettingsContent from "@/views/userSettings/SettingsContent";
+import Header from "@/views/userSettingsComponents/SettingsHeader";
+import SettingsContent from "@/views/userSettingsComponents/SettingsContent";
 export default {
   name: "Settings",
   components: {

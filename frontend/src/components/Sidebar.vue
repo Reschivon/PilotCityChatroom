@@ -93,15 +93,8 @@ export default {
             {icon: "mdi-account", text: "Pokemonaca" }
           ] 
         },
-        { icon: "mdi-cellphone-link", text: "Settings" },
-        {
-          icon: "mdi-chevron-up",
-          "icon-alt": "mdi-chevron-down",
-          text: "Labels",
-          model: true,
-          children: [{ icon: "mdi-account", text: "Person 1", route: '/settings/user' }]
-        },
-
+        { icon: "mdi-cellphone-link", text: "Settings", route: '/settings/user'},
+        { icon: "mdi-blank", text: ""},
         { icon: "mdi-account", text: "Person 2" },
         { icon: "mdi-contacts", text: "Group 1" },
         { icon: "mdi-account", text: "Person 4" },

@@ -12,7 +12,7 @@
     </v-row>
     <!--Settings-->
     <v-row align="center" justify="center">
-      <h1 class="text-decoration-underline big-letters white--text">Meeting Settings</h1>
+      <h1 justify-center class="text-decoration-underline big-letters white--text">Meeting Settings</h1>
     </v-row>
     <!--General Settings Information-->
     <v-row align="center" justify="center">
@@ -47,7 +47,6 @@ import Popup from "@/components/meetingSettingsComponents/LeaveMeetingPopup";
 import PopupEditData from "@/components/generalSettingsComponents/PopupEditData";
 import MemberList from "@/components/meetingSettingsComponents/MemberList";
 export default {
-  //{{ data.myPfp }}
   name: "SettingsContent",
   data() {
     return {
@@ -87,7 +86,8 @@ export default {
 
 <style>
 .big-letters {
-  font-size: 3.5em;
+  font-size: 3.4em;
+  max-width: font;
 }
 
 .setting-subheader {

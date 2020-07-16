@@ -29,7 +29,7 @@
           <v-row>
             <p class="setting-subheader ml-3">Members</p>
             <v-col cols="14">
-              <EditData v-model="chat.name" :title="`Members`"/>
+              <MemberList :memberData="chat.members" :title="'Members'"/>
             </v-col>
           </v-row>
           <p class="setting-information">{{ chat.name }}</p>
@@ -45,12 +45,14 @@
 <script>
 import Popup from "@/components/meetingSettingsComponents/LeaveMeetingPopup";
 import PopupEditData from "@/components/generalSettingsComponents/PopupEditData";
+import MemberList from "@/components/meetingSettingsComponents/MemberList";
 export default {
   //{{ data.myPfp }}
   name: "SettingsContent",
   data() {
     return {
       chat: {
+        titleVariable: 'members222',
         name: "Coding Interns",
         members:[
           {name: "Baby", lastName: "Joe", id: "123", pfp: "@/assets/pfp.png"},
@@ -75,7 +77,8 @@ export default {
 
   components: {
     ResetPasswordPopup: Popup,
-    EditData: PopupEditData
+    EditData: PopupEditData,
+    MemberList
   }
 };
 </script>

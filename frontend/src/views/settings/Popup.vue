@@ -12,10 +12,8 @@
         <v-card>
             <v-card-title class="headline">Reset Password Sent</v-card-title>
 
-            <v-card-text :input="email">
-            <!-- {{`An email has been sent to ${email} to reset your password.`}} -->
-            An email has been sent to reset your password.
-            <!-- {{SettingsContent.user.email}} fix this to be dynamic later-->
+            <v-card-text>
+            {{`An email has been sent to ${email} to reset your password.`}}
             </v-card-text>
         </v-card>
         </v-dialog>
@@ -27,12 +25,12 @@
 export default {
     name: "Popup",
     props:{
-        input:String
+        input:String,
+        email:String
     },
     data(){
         return{
             isClicked: false,
-            email: ""
         }
     },
     methods:{

@@ -34,10 +34,8 @@
           </v-row>
           <p class="setting-information">{{ user.email }}</p>
           <p class="setting-subheader" >Password</p>
-          <div @click="emitData(user.email)"> 
               <!-- #todo -->
-            <ResetPasswordPopup v-model="user.email"/>
-            </div>
+            <ResetPasswordPopup :email="user.email"/>
         </v-card>
       </v-container>
     </v-row>
@@ -65,10 +63,6 @@ export default {
             console.log("picture required by code")
             return require("@/assets/pfp.png")
 */
-    },
-    updateUsername(updatedUsername) {
-      console.log("new username updated");
-      this.user.username = updatedUsername;
     },
     emitData(data){
         console.log("clicked me");

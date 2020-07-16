@@ -43,7 +43,7 @@
                         </a>
                       </div>
                       <div class="text-center mt-6">
-                        <v-btn type="submit" large :color="bgColor" dark
+                        <v-btn @click="signin" type="submit" large :color="bgColor" dark
                           >Sign In</v-btn
                         >
                       </div>
@@ -204,6 +204,7 @@
 
 <script>
 import Header from "@/components/Header";
+import * as services from "../services";
 
 export default {
   name: 'Auth',
@@ -264,25 +265,23 @@ export default {
           this.error = e + ''
         })
     },
-    async signin() {
-      try {
-        const response = await this.$auth.loginWith('local', {
-          data: {
-            login: this.login,
-            password: this.password
-          }
-        })
-        this.snackbarType = response.data.type
-        this.snackbarMessage = response.data.message
-        this.snackbar = true
-      } catch (err) {
-        this.snackbarType = 'error'
-        this.snackbarMessage = 'Error signing you in'
-        this.snackbar = true
-      }
+    signin() {
+      services.client.authenticate({
+        strategy: 'local',
+        email: this.login,
+        password: this.password
+      }).then((auth) => {
+        // Logged in
+        this.login = ''
+        this.password = ''
+        console.log(auth)
+      }).catch(e => {
+        // Show login page (potentially with `e.message`)
+        console.error('Authentication error', e);
+      });
     }
   }
-}
+} 
 </script>
 
 <style scoped lang="scss">

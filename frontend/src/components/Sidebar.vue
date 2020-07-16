@@ -14,7 +14,7 @@
           label="Find a conversation"
         ></v-text-field>
       </template>
-      <template v-for="item in items">
+      <template v-for="item in items" :keys="item.text" router :to="item.route">
         <v-row v-if="item.heading" :key="item.heading" align="center">
           <v-col cols="6">
             <v-subheader v-if="item.heading">{{ item.heading }}</v-subheader>
@@ -91,15 +91,15 @@ export default {
             {icon: "mdi-account", text: "Dayrick" },
             {icon: "mdi-account", text: "Keknee" },
             {icon: "mdi-account", text: "Pokemonaca" }
-          ]
+          ] 
         },
-        { icon: "mdi-cellphone-link", text: "Pilot Bot" },
+        { icon: "mdi-cellphone-link", text: "Settings" },
         {
           icon: "mdi-chevron-up",
           "icon-alt": "mdi-chevron-down",
           text: "Labels",
           model: true,
-          children: [{ icon: "mdi-account", text: "Person 1" }]
+          children: [{ icon: "mdi-account", text: "Person 1", route: '/settings/user' }]
         },
     
         { icon: "mdi-account", text: "Person 2" },

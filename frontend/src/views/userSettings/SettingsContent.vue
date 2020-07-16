@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import Popup from "./Popup";
+import Popup from "./ButtonPopup";
 import PopupEditData from "./PopupEditData";
 export default {
   //{{ data.myPfp }}

@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Auth from "../views/AuthPage.vue";
-//import Settings from "../views/settings/Settings.vue";
+//import Settings from "../views/userSettings/Settings.vue";
 
 Vue.use(VueRouter);
 
@@ -25,7 +25,7 @@ const routes = [
     path: "/settings",
     name: "Settings",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/settings/Settings.vue"),
+      import(/* webpackChunkName: "about" */ "../views/userSettings/Settings.vue"),
   },
   {
     path: "/auth",

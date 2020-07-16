@@ -1,7 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-//import Settings from "../views/settings/Settings.vue";
+import Auth from "../views/AuthPage.vue";
+//import Settings from "../Settings.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -20,10 +22,21 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/Chat.vue"),
   },
   {
-    path: "/settings",
+    path: "/settings/user",
     name: "Settings",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/settings/Settings.vue"),
+      import(/* webpackChunkName: "about" */ "../views/UserSettings.vue"),
+  },
+  {
+    path: "/settings/meeting",
+    name: "MeetingSettings",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/MeetingSettings.vue"),
+  },
+  {
+    path: "/auth",
+    name: "Auth",
+    component: Auth,
   },
 ];
 

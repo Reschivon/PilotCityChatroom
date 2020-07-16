@@ -14,7 +14,7 @@
           label="Find a conversation"
         ></v-text-field>
       </template>
-      <template v-for="item in items">
+      <template v-for="item in items" :keys="item.text" router :to="item.route">
         <v-row v-if="item.heading" :key="item.heading" align="center">
           <v-col cols="6">
             <v-subheader v-if="item.heading">{{ item.heading }}</v-subheader>
@@ -86,22 +86,15 @@ export default {
           text: "Stakeholders",
           model: false,
           children: [
-            { icon: "mdi-account", text: "A-heel" },
-            { icon: "mdi-account", text: "Prajet" },
-            { icon: "mdi-account", text: "Dayrick" },
-            { icon: "mdi-account", text: "Keknee" },
-            { icon: "mdi-account", text: "Pokemonaca" }
-          ]
+            {icon: "mdi-account", text: "A-heel" },
+            {icon: "mdi-account", text: "Prajet" },
+            {icon: "mdi-account", text: "Dayrick" },
+            {icon: "mdi-account", text: "Keknee" },
+            {icon: "mdi-account", text: "Pokemonaca" }
+          ] 
         },
-        { icon: "mdi-cellphone-link", text: "Personal Assistant" },
-        {
-          icon: "mdi-chevron-up",
-          "icon-alt": "mdi-chevron-down",
-          text: "Labels",
-          model: true,
-          children: [{ icon: "mdi-account", text: "Person 1" }]
-        },
-
+        { icon: "mdi-cellphone-link", text: "Settings", route: '/settings/user'},
+        { icon: "mdi-blank", text: ""},
         { icon: "mdi-account", text: "Person 2" },
         { icon: "mdi-contacts", text: "Group 1" },
         { icon: "mdi-account", text: "Person 4" },

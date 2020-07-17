@@ -277,6 +277,7 @@ export default {
         // Show login page (potentially with `e.message`)
         console.error('Authentication error', e);
       });
+      this.$router.push('/chat');
     }
   }
 } 

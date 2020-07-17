@@ -16,6 +16,11 @@
 export default {
   name: 'Home',
   components: {
+  },
+  methods: {
+    AuthPage () {
+      this.$router.push('/auth');
+    }
   }
 }
 </script>

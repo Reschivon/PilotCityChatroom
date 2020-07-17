@@ -28,14 +28,13 @@
 <script>
 export default {
   name: "Message",
-  props: { isOwned: Boolean, content: String, name: String },
+  props: { isOwned: Boolean, content: String, name: String, timestamp: Date},
   data: () => {
     return {
       picture: "mdi-account",
       colors: {
         green: "#6EBA7F"
       },
-      timestamp: "Today at 10:15 am"
     };
   },
   computed: {

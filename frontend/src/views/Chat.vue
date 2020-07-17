@@ -13,7 +13,8 @@
         :key="index"
         :is-owned="false/*index % 3 == 0*/"
         :content="message.text"
-        :name="title"
+        :name="message.user.username"
+        :timestamp="new Date(message.createdAt)"
       />
     </v-container>
 

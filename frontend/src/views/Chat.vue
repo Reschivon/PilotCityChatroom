@@ -128,7 +128,7 @@ export default {
       services.messageService.create({
         text: this.newMessage,
       });
-      
+      this.newMessage = '';
       // .then((message) => {
       //   this.messages.push(message);
       //   this.newMessage = '';

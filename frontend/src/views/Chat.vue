@@ -11,8 +11,8 @@
       <Message
         v-for="(message, index) in messages"
         :key="index"
-        :is-owned="index % 3 == 0"
-        :content="message"
+        :is-owned="false/*index % 3 == 0*/"
+        :content="message.text"
         :name="title"
       />
     </v-container>
@@ -85,6 +85,8 @@
 </template>
 
 <script>
+import * as services from "../services";
+
 import Message from "@/components/Message";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
@@ -100,16 +102,7 @@ export default {
     return {
       // drawer: true
       title: "# Coding Interns",
-      messages: [
-        "1. Lorem ipsum dolor sit amet",
-        "2. consectetur adipiscing elit",
-        "3. sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-        "4. Ut enim ad minim veniam",
-        "5. quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
-        "6. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur",
-        "7. Excepteur sint occaecat cupidatat non proident",
-        "8. sunt in culpa qui officia deserunt mollit anim id est laborum"
-      ],
+      messages: {},
       newMessage: null,
       colors: {
         green: "#6eba7f"
@@ -121,21 +114,31 @@ export default {
     };
   },
   methods: {
+    fetchMessages() {
+      services.messageService.find({}).then(messages => {
+        console.log(messages);
+        this.messages = messages.data;
+      }).catch(e => {
+        console.log("fetchMessages error: ", e)
+      });
+    },
     sendMessage() {
-      let msg = this.newMessage.trim();
-      this.newMessage = null;
-      if (msg) {
-        console.log(msg);
-        this.messages.push(msg);
-      }
+      services.messageService.create({
+        text: this.newMessage,
+      }).then((message) => {
+        this.messages.push(message);
+        this.newMessage = '';
+      });
     },
     scrollToBottom() {
       this.$vuetify.goTo(9999, { duration: 0 });
     }
-  }
-  // created() {
-  //   this.windowHeight = document.getElementById("chatWindow").clientHeight;
-  // },
+  },
+  created() {
+    // this.windowHeight = document.getElementById("chatWindow").clientHeight;
+
+    this.fetchMessages();
+  },
 };
 </script>
 

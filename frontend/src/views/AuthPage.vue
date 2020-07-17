@@ -43,7 +43,7 @@
                         </a>
                       </div>
                       <div class="text-center mt-6">
-                        <v-btn @click="signin" type="submit" large :color="bgColor" dark
+                        <v-btn type="submit" large :color="bgColor" dark
                           >Sign In</v-btn
                         >
                       </div>
@@ -139,7 +139,7 @@
                         type="password"
                       />
                       <div class="text-center mt-6">
-                        <v-btn @click="signup" type="submit" large :color="bgColor" dark>
+                        <v-btn type="submit" large :color="bgColor" dark>
                           Sign Up</v-btn
                         >
                       </div>

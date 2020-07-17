@@ -36,7 +36,6 @@
           <p class="setting-subheader">Password</p>
               <!-- #todo -->
             <ResetPasswordPopup :email="chat.name"/>
-          <p>{{chat.members}}</p>
         </v-card>
       </v-container>
     </v-row>

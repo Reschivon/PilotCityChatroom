@@ -1,3 +1,5 @@
+
+
 const io = require('socket.io-client');
 const feathers = require('@feathersjs/feathers');
 const socketio = require('@feathersjs/socketio-client');
@@ -21,7 +23,10 @@ client.reAuthenticate().then((obj) => {
   console.log(e)
 })
 
-messageService.on('created', message => console.log('Created a message', message));
+// messageService.on('created', message => {
+//   console.log('Created a message', message);
+//   messages.push(message)
+// });
 /*
 // Use the messages service from the server
 messageService.create({

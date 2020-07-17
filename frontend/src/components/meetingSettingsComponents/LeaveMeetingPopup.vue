@@ -11,7 +11,7 @@
 
         <v-card-text>
             <!-- todo leave chat -->
-          <v-btn @click="leaveChat" class="font-family-Raleway red accent-2white--text">Leave</v-btn>
+          <v-btn @click="leaveChat" class="font-family-Raleway red accent-2 white--text">Leave</v-btn>
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -34,6 +34,9 @@ export default {
   methods: {
     tellClicked() {
       console.log("clicked");
+    },
+    leaveChat(){
+      console.log("leave chat clicked")
     }
   },
 

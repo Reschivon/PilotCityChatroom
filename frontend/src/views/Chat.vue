@@ -11,7 +11,7 @@
       <Message
         v-for="(message, index) in messages"
         :key="index"
-        :is-owned="false/*index % 3 == 0*/"
+        :is-owned="message.user.username == currentName"
         :content="message.text"
         :name="message.user.username"
         :timestamp="new Date(message.createdAt)"
@@ -93,6 +93,8 @@ import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
 //import messageService from '@/services/index.js'
 
+console.log("authInfo", services.authInfo)
+
 export default {
   name: "Chat",
   components: {
@@ -104,6 +106,7 @@ export default {
     return {
       // drawer: true
       title: "# Coding Interns",
+      currentName: 0,
       messages: {},
       newMessage: null,
       colors: {
@@ -145,6 +148,13 @@ export default {
       this.messages.push(message)
     });
     this.fetchMessages();
+
+    services.messageclient.reAuthenticate().then((obj) => {
+      console.log(obj);
+      this.currentName = obj.user.username;
+    }).catch(e => {
+      console.log(e)
+    })
   },
 };
 </script>

@@ -8,7 +8,6 @@ const auth = require('@feathersjs/authentication-client');
 const socket = io('http://localhost:3030');
 const client = feathers();
 
-
 client.configure(socketio(socket));
 client.configure(auth({
   storageKey: 'auth'
@@ -16,13 +15,14 @@ client.configure(auth({
 
 export {client};
 export const messageService = client.service('messages');
+export const messageclient = client;
 
-client.reAuthenticate().then((obj) => {
-  console.log(obj)
-}).catch(e => {
-  console.log(e)
-})
-
+// client.reAuthenticate().then((obj) => {
+//   console.log(obj);
+//   _authInfo = obj.user._id;
+// }).catch(e => {
+//   console.log(e)
+// })
 // messageService.on('created', message => {
 //   console.log('Created a message', message);
 //   messages.push(message)

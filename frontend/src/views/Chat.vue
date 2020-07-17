@@ -91,6 +91,7 @@ import * as services from "../services";
 import Message from "@/components/Message";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
+//import messageService from '@/services/index.js'
 
 export default {
   name: "Chat",
@@ -126,10 +127,12 @@ export default {
     sendMessage() {
       services.messageService.create({
         text: this.newMessage,
-      }).then((message) => {
-        this.messages.push(message);
-        this.newMessage = '';
       });
+      
+      // .then((message) => {
+      //   this.messages.push(message);
+      //   this.newMessage = '';
+      // });
     },
     scrollToBottom() {
       this.$vuetify.goTo(9999, { duration: 0 });
@@ -137,7 +140,10 @@ export default {
   },
   created() {
     // this.windowHeight = document.getElementById("chatWindow").clientHeight;
-
+    services.messageService.on('created', message => {
+      console.log('Created a message', message);
+      this.messages.push(message)
+    });
     this.fetchMessages();
   },
 };

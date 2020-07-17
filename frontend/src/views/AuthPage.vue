@@ -139,7 +139,7 @@
                         type="password"
                       />
                       <div class="text-center mt-6">
-                        <v-btn type="submit" large :color="bgColor" dark>
+                        <v-btn @click="signup" type="submit" large :color="bgColor" dark>
                           Sign Up</v-btn
                         >
                       </div>
@@ -245,30 +245,28 @@ export default {
     snackbarMessage: '',
     snackbar: false,
     confirmpassword: null,
-    lastname: null,
-    firstname: null,
+    lastname: '',
+    firstname: '',
 
   }),
   methods: {
     signup() {
-      this.$auth
-        .signup({
-          data: {
-            user: {
-              username: this.username,
-              email: this.email,
-              password: this.password
-            }
-          }
-        })
-        .catch((e) => {
-          this.error = e + ''
-        })
+      services.client.service("users").create({
+        username: this.username,
+        email: this.email,
+        firstname: this.firstname,
+        lastname: this.lastname,
+        password: this.password
+      }).then((user) => {
+        console.log(user);
+      }).catch((e) => {
+        console.log(e);
+      });
     },
     signin() {
       services.client.authenticate({
         strategy: 'local',
-        email: this.login,
+        username: this.login,
         password: this.password
       }).then((auth) => {
         // Logged in

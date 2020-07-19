@@ -35,7 +35,7 @@
         <span class="chatTitle">{{ title }}</span>
       </v-toolbar-title>
       <!-- Temporary settings button via the pencil sign -->
-      <router-link to="/settings">
+      <router-link to="/settings/meeting">
         <v-btn icon>
           <v-icon>mdi-pencil</v-icon>
         </v-btn>

@@ -1,8 +1,8 @@
 <template>
   <v-app id="app">
-    <v-main class="secondary">
+    <div class="secondary" id="wrapper">
       <router-view></router-view>
-    </v-main>
+    </div>
   </v-app>
 </template>
 
@@ -14,7 +14,7 @@ export default {
 
   data: () => ({
     //
-  }),
+  })
   // mounted: function() {
   //   let elHtml = document.getElementsByTagName("html")[0];
   //   elHtml.style.overflowY = "auto";
@@ -27,9 +27,8 @@ export default {
 </script>
 
 <style scoped>
-/* #app {
+#wrapper {
   height: 100%;
   width: 100%;
-  overflow: hidden;
-} */
+}
 </style>

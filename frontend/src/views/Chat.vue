@@ -1,36 +1,40 @@
 <template>
-  <div class="chat primary" v-scroll:#chatWindow="scrollToBottom()">
+  <div class="chat" v-scroll:#chatWindow="scrollToBottom()">
     <Header :title="title" />
     <Sidebar v-model="title" />
     <!-- @toggleDrawer="drawer != drawer" -->
 
     <!-- Chat window -->
-    <!-- Render the most recent 10 messages,
-    wrap the rest inside a v-lazy component?-->
-    <v-container class="secondary pl-3 pr-6" id="chatWindow" fluid>
-      <Message
-        v-for="(message, index) in messages"
-        :key="index"
-        :is-owned="message.user.username == currentName"
-        :content="message.text"
-        :name="message.user.username"
-        :timestamp="new Date(message.createdAt)"
-      />
-    </v-container>
+    <!-- Idea: render the most recent 10 messages,
+    wrap the rest inside a v-lazy component so they don't 
+    need to load immediately?-->
+    <v-main>
+      <v-container class="secondary pl-3 pr-6 mb-n8" id="chatWindow" fluid>
+        <Message
+          v-for="(message, index) in messages"
+          :key="index"
+          :is-owned="message.user.username == currentName"
+          :content="message.text"
+          :name="message.user.username"
+          :timestamp="new Date(message.createdAt)"
+        />
+      </v-container>
+    </v-main>
 
     <!-- Send Message bar -->
-    <v-app-bar app bottom class="secondary" flat fluid id="sendBar" scroll-target>
+    <v-footer app inset class="secondary pa-3">
       <v-textarea
         append-outer-icon="mdi-send"
         auto-grow
+        autofocus
         background-color="accent"
-        id="textArea"
         clearable
         :color="this.colors.green"
         dark
         dense
         flat
         hide-details="auto"
+        id="textArea"
         outlined
         placeholder="Type a message..."
         rows="auto"
@@ -38,7 +42,7 @@
         @click:append-outer="sendMessage"
         @keydown.enter.exact.prevent="sendMessage"
       ></v-textarea>
-    </v-app-bar>
+    </v-footer>
 
     <!-- Extra properties, maybe implement later -->
     <!-- :rules="[rules.required]" -->
@@ -93,7 +97,7 @@ import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
 //import messageService from '@/services/index.js'
 
-console.log("authInfo", services.authInfo)
+console.log("authInfo", services.authInfo);
 
 export default {
   name: "Chat",
@@ -120,18 +124,21 @@ export default {
   },
   methods: {
     fetchMessages() {
-      services.messageService.find({}).then(messages => {
-        console.log(messages);
-        this.messages = messages.data;
-      }).catch(e => {
-        console.log("fetchMessages error: ", e)
-      });
+      services.messageService
+        .find({})
+        .then(messages => {
+          console.log(messages);
+          this.messages = messages.data;
+        })
+        .catch(e => {
+          console.log("fetchMessages error: ", e);
+        });
     },
     sendMessage() {
       services.messageService.create({
-        text: this.newMessage,
+        text: this.newMessage
       });
-      this.newMessage = '';
+      this.newMessage = "";
       // .then((message) => {
       //   this.messages.push(message);
       //   this.newMessage = '';
@@ -143,19 +150,22 @@ export default {
   },
   created() {
     // this.windowHeight = document.getElementById("chatWindow").clientHeight;
-    services.messageService.on('created', message => {
-      console.log('Created a message', message);
-      this.messages.push(message)
+    services.messageService.on("created", message => {
+      console.log("Created a message", message);
+      this.messages.push(message);
     });
     this.fetchMessages();
 
-    services.messageclient.reAuthenticate().then((obj) => {
-      console.log(obj);
-      this.currentName = obj.user.username;
-    }).catch(e => {
-      console.log(e)
-    })
-  },
+    services.messageclient
+      .reAuthenticate()
+      .then(obj => {
+        console.log(obj);
+        this.currentName = obj.user.username;
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
 };
 </script>
 

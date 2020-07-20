@@ -16,7 +16,7 @@
           :is-owned="message.user.username == currentName"
           :content="message.text"
           :name="message.user.username"
-          :timestamp="new Date(message.createdAt)"
+          :timestamp="formatTime(message.createdAt)"
         />
       </v-container>
     </v-main>
@@ -91,6 +91,7 @@
 
 <script>
 import * as services from "../services";
+import moment from "moment";
 
 import Message from "@/components/Message";
 import Sidebar from "@/components/Sidebar";
@@ -104,7 +105,7 @@ export default {
   components: {
     Message,
     Sidebar,
-    Header
+    Header,
   },
   data: () => {
     return {
@@ -114,8 +115,8 @@ export default {
       messages: {},
       newMessage: null,
       colors: {
-        green: "#6eba7f"
-      }
+        green: "#6eba7f",
+      },
       // windowHeight: null,
       // rules: {
       //   required: v => !!v || "This field is required"
@@ -126,17 +127,17 @@ export default {
     fetchMessages() {
       services.messageService
         .find({})
-        .then(messages => {
+        .then((messages) => {
           console.log(messages);
           this.messages = messages.data;
         })
-        .catch(e => {
+        .catch((e) => {
           console.log("fetchMessages error: ", e);
         });
     },
     sendMessage() {
       services.messageService.create({
-        text: this.newMessage
+        text: this.newMessage,
       });
       this.newMessage = "";
       // .then((message) => {
@@ -144,13 +145,16 @@ export default {
       //   this.newMessage = '';
       // });
     },
+    formatTime(time) {
+      return moment(time).calendar();
+    },
     scrollToBottom() {
       this.$vuetify.goTo(9999, { duration: 0 });
-    }
+    },
   },
   created() {
     // this.windowHeight = document.getElementById("chatWindow").clientHeight;
-    services.messageService.on("created", message => {
+    services.messageService.on("created", (message) => {
       console.log("Created a message", message);
       this.messages.push(message);
     });
@@ -158,14 +162,14 @@ export default {
 
     services.messageclient
       .reAuthenticate()
-      .then(obj => {
+      .then((obj) => {
         console.log(obj);
         this.currentName = obj.user.username;
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
-  }
+  },
 };
 </script>
 

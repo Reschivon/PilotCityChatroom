@@ -17,6 +17,7 @@
           :content="message.text"
           :name="message.user.username"
           :timestamp="formatTime(message.createdAt)"
+          :group-with-prev-msg="sameSenderAndTime(message, messages[index - 1])"
         />
       </v-container>
     </v-main>
@@ -113,10 +114,12 @@ export default {
       title: "# Coding Interns",
       currentName: 0,
       messages: {},
+      // formattedTimes: [],
       newMessage: null,
       colors: {
         green: "#6eba7f",
       },
+      // Possible field validation for empty text area
       // windowHeight: null,
       // rules: {
       //   required: v => !!v || "This field is required"
@@ -146,10 +149,20 @@ export default {
       // });
     },
     formatTime(time) {
-      return moment(time).calendar();
+      let formattedTime = moment(time).calendar();
+      // this.formattedTimes.push(formattedTime);
+      // console.log("formattedTimes: ", this.formattedTimes);
+      return formattedTime;
     },
     scrollToBottom() {
       this.$vuetify.goTo(9999, { duration: 0 });
+    },
+    sameSenderAndTime(msg, prevMsg) {
+      if (prevMsg) {
+        let msgTime = moment(msg.createdAt).calendar();
+        let prevMsgTime = moment(prevMsg.createdAt).calendar();
+        return msg.userId == prevMsg.userId && msgTime == prevMsgTime;
+      } else return false;
     },
   },
   created() {

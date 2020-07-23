@@ -106,7 +106,7 @@ export default {
   components: {
     Message,
     Sidebar,
-    Header,
+    Header
   },
   data: () => {
     return {
@@ -117,8 +117,8 @@ export default {
       // formattedTimes: [],
       newMessage: null,
       colors: {
-        green: "#6eba7f",
-      },
+        green: "#6eba7f"
+      }
       // Possible field validation for empty text area
       // windowHeight: null,
       // rules: {
@@ -130,17 +130,17 @@ export default {
     fetchMessages() {
       services.messageService
         .find({})
-        .then((messages) => {
+        .then(messages => {
           console.log(messages);
           this.messages = messages.data;
         })
-        .catch((e) => {
+        .catch(e => {
           console.log("fetchMessages error: ", e);
         });
     },
     sendMessage() {
       services.messageService.create({
-        text: this.newMessage,
+        text: this.newMessage
       });
       this.newMessage = "";
       // .then((message) => {
@@ -163,11 +163,11 @@ export default {
         let prevMsgTime = moment(prevMsg.createdAt).calendar();
         return msg.userId == prevMsg.userId && msgTime == prevMsgTime;
       } else return false;
-    },
+    }
   },
   created() {
     // this.windowHeight = document.getElementById("chatWindow").clientHeight;
-    services.messageService.on("created", (message) => {
+    services.messageService.on("created", message => {
       console.log("Created a message", message);
       this.messages.push(message);
     });
@@ -175,14 +175,16 @@ export default {
 
     services.messageclient
       .reAuthenticate()
-      .then((obj) => {
+      .then(obj => {
         console.log(obj);
         this.currentName = obj.user.username;
       })
-      .catch((e) => {
+      .catch(e => {
+        // Prevents users from logging in if unauthenticated
+        // this.$router.push({ name: "Auth" });
         console.log(e);
       });
-  },
+  }
 };
 </script>
 

@@ -27,13 +27,9 @@
       </v-list-item>
 
       <!-- Stakeholders -->
-      <v-list-group v-model="stakeholders.model" append-icon>
-        <v-icon
-          color="white"
-          slot="prependIcon"
-        >{{ stakeholders.model ? stakeholders.icon : stakeholders['icon-alt'] }}</v-icon>
-        <!-- The line below can be used if we want to append some type of icon (pin or close?) to the chat -->
-        <!-- <v-icon color="white" slot="appendIcon">{{ item.model ? null : 'mdi-pin' }}</v-icon> -->
+      <v-list-group v-model="stakeholders.model">
+        <v-icon color="white" slot="prependIcon">{{ stakeholders.icon }}</v-icon>
+        <v-icon color="white" slot="appendIcon">mdi-chevron-down</v-icon>
         <template v-slot:activator>
           <v-list-item-content>
             <v-list-item-title class="white--text">{{ stakeholders.text }}</v-list-item-title>
@@ -61,9 +57,9 @@
 
       <template v-for="chat in recentChats" :keys="chat.text" :router-to="chat.route">
         <v-list-item :key="chat.text" link :value="value" @click="updateTitle">
-          <v-list-item-action>
-            <v-icon>{{ chat.icon }}</v-icon>
-          </v-list-item-action>
+          <v-list-item-avatar :color="colors.green" size="24">
+            <p class="text-right">{{ getInitials(chat.text) }}</p>
+          </v-list-item-avatar>
           <v-list-item-content>
             <v-list-item-title>{{ chat.text }}</v-list-item-title>
           </v-list-item-content>
@@ -94,10 +90,12 @@ export default {
   props: ["value"],
   data: () => {
     return {
+      colors: {
+        green: "#6EBA7F"
+      },
       // showDrawer: null,
       stakeholders: {
-        icon: "mdi-chevron-up",
-        "icon-alt": "mdi-account-tie",
+        icon: "mdi-account-tie",
         text: "Stakeholders",
         model: false,
         children: [
@@ -142,6 +140,12 @@ export default {
   methods: {
     updateTitle(event) {
       this.$emit("input", event.srcElement.outerText);
+    },
+    getInitials(fullName) {
+      let names = fullName.split(" ");
+      let initials = "";
+      names.forEach(name => (initials += name.substring(0, 1)));
+      return initials;
     }
   }
 };

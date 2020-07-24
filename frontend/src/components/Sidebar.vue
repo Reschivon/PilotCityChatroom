@@ -28,11 +28,11 @@
 
       <!-- Stakeholders -->
       <v-list-group v-model="stakeholders.model">
-        <v-icon color="white" slot="prependIcon">{{ stakeholders.icon }}</v-icon>
+        <v-icon color="white" slot="prependIcon">mdi-account-tie</v-icon>
         <v-icon color="white" slot="appendIcon">mdi-chevron-down</v-icon>
         <template v-slot:activator>
           <v-list-item-content>
-            <v-list-item-title class="white--text">{{ stakeholders.text }}</v-list-item-title>
+            <v-list-item-title class="white--text">Stakeholders</v-list-item-title>
           </v-list-item-content>
         </template>
         <v-list-item
@@ -46,7 +46,7 @@
             <v-icon>{{ child.icon }}</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>{{ child.text }}</v-list-item-title>
+            <v-list-item-title>{{ child.name }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list-group>
@@ -55,13 +55,17 @@
 
       <v-subheader>Recent chats</v-subheader>
 
-      <template v-for="chat in recentChats" :keys="chat.text" :router-to="chat.route">
+      <template v-for="chat in recentChats" :keys="chat.name" :router-to="chat.route">
         <v-list-item :key="chat.text" link :value="value" @click="updateTitle">
-          <v-list-item-avatar :color="colors.green" size="24">
-            <p class="text-right">{{ getInitials(chat.text) }}</p>
+          <v-list-item-avatar :color="chat.individual ? colors.green : null">
+            <span
+              v-if="chat.individual"
+              style="width: 100%; align-items: center"
+            >{{ getInitials(chat.name)}}</span>
+            <v-icon v-else>{{ chat.icon }}</v-icon>
           </v-list-item-avatar>
           <v-list-item-content>
-            <v-list-item-title>{{ chat.text }}</v-list-item-title>
+            <v-list-item-title>{{ chat.name }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </template>
@@ -70,13 +74,17 @@
 
       <v-subheader>Older chats</v-subheader>
 
-      <template v-for="chat in olderChats" :keys="chat.text" :router-to="chat.route">
-        <v-list-item :key="chat.text" link :value="value" @click="updateTitle">
-          <v-list-item-action>
-            <v-icon>{{ chat.icon }}</v-icon>
-          </v-list-item-action>
+      <template v-for="chat in olderChats" :keys="chat.name" :router-to="chat.route">
+        <v-list-item :key="chat.name" link :value="value" @click="updateTitle">
+          <v-list-item-avatar :color="chat.individual ? colors.green : null">
+            <span
+              v-if="chat.individual"
+              style="width: 100%; align-items: center"
+            >{{ getInitials(chat.name)}}</span>
+            <v-icon v-else>{{ chat.icon }}</v-icon>
+          </v-list-item-avatar>
           <v-list-item-content>
-            <v-list-item-title>{{ chat.text }}</v-list-item-title>
+            <v-list-item-title>{{ chat.name }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </template>
@@ -95,15 +103,13 @@ export default {
       },
       // showDrawer: null,
       stakeholders: {
-        icon: "mdi-account-tie",
-        text: "Stakeholders",
         model: false,
         children: [
-          { icon: "mdi-account", text: "A-heel" },
-          { icon: "mdi-account", text: "Prajet" },
-          { icon: "mdi-account", text: "Dayrick" },
-          { icon: "mdi-account", text: "Keknee" },
-          { icon: "mdi-account", text: "Pokemonaca" }
+          { icon: "mdi-account", name: "A-heel" },
+          { icon: "mdi-account", name: "Prajet" },
+          { icon: "mdi-account", name: "Dayrick" },
+          { icon: "mdi-account", name: "Keknee" },
+          { icon: "mdi-account", name: "Pokemonaca" }
         ]
       },
       recentChats: [
@@ -114,26 +120,26 @@ export default {
         //   text: "Favorites",
         //   model: false,
         //   children: [
-        //     { icon: "mdi-account", text: "Lin" },
-        //     { icon: "mdi-account", text: "Jeffery" },
-        //     { icon: "mdi-account", text: "Joe" },
-        //     { icon: "mdi-account", text: "Aditya" },
-        //     { icon: "mdi-account", text: "Aang" }
+        //     { icon: "mdi-account", name: "Lin" },
+        //     { icon: "mdi-account", name: "Jeffery" },
+        //     { icon: "mdi-accountname: "Joe" },
+        //     { icon: "mdi-account", name: "Aditya" },
+        //     { icon: "mdi-account", name: "Aang" }
         //   ]
         // },
-        { icon: "mdi-account", text: "Person 2" },
-        { icon: "mdi-account-group", text: "Group 1" },
-        { icon: "mdi-account", text: "Person 4" },
-        { icon: "mdi-account", text: "Person 5" },
-        { icon: "mdi-account-group", text: "Group 2" }
+        { icon: "mdi-account", name: "Person 2", individual: true },
+        { icon: "mdi-account-group", name: "Group 1" },
+        { icon: "mdi-account", name: "Person 4", individual: true },
+        { icon: "mdi-account", name: "Person 5", individual: true },
+        { icon: "mdi-account-group", name: "Group 2" }
       ],
       olderChats: [
-        { icon: "mdi-account-group", text: "Group 3" },
-        { icon: "mdi-account-group", text: "Group 4" },
-        { icon: "mdi-account", text: "Person 6" },
-        { icon: "mdi-account-group", text: "Group 5" },
-        { icon: "mdi-account-group", text: "Group 6" },
-        { icon: "mdi-account", text: "Person 7" }
+        { icon: "mdi-account-group", name: "Group 3" },
+        { icon: "mdi-account-group", name: "Group 4" },
+        { icon: "mdi-account", name: "Person 6", individual: true },
+        { icon: "mdi-account-group", name: "Group 5" },
+        { icon: "mdi-account-group", name: "Group 6" },
+        { icon: "mdi-account", name: "Person 7", individual: true }
       ]
     };
   },

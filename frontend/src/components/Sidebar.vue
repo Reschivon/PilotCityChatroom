@@ -15,40 +15,72 @@
           label="Find a conversation"
         ></v-text-field>
       </template>-->
-      <template v-for="(item, index) in items" :keys="item.text" router :to="item.route">
-        <v-row v-if="item.divider" :key="index">
-          <v-divider></v-divider>
-        </v-row>
-        <v-list-group v-else-if="item.children" :key="item.text" v-model="item.model" append-icon>
-          <v-icon color="white" slot="prependIcon">{{ item.model ? item.icon : item['icon-alt'] }}</v-icon>
-          <!-- The line below can be used if we want to append some type of icon (pin or close?) to the chat -->
-          <!-- <v-icon color="white" slot="appendIcon">{{ item.model ? null : 'mdi-pin' }}</v-icon> -->
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title class="white--text">{{ item.text }}</v-list-item-title>
-            </v-list-item-content>
-          </template>
-          <v-list-item
-            v-for="(child, i) in item.children"
-            :key="i"
-            link
-            :value="value"
-            @click="updateTitle"
-          >
-            <v-list-item-action v-if="child.icon">
-              <v-icon>{{ child.icon }}</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>{{ child.text }}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-group>
-        <v-list-item v-else :key="item.text" link :value="value" @click="updateTitle">
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
+
+      <!-- Settings -->
+      <v-list-item>
+        <v-list-item-icon>
+          <v-icon>mdi-cog</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title>Settings</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
+      <!-- Stakeholders -->
+      <v-list-group v-model="stakeholders.model" append-icon>
+        <v-icon
+          color="white"
+          slot="prependIcon"
+        >{{ stakeholders.model ? stakeholders.icon : stakeholders['icon-alt'] }}</v-icon>
+        <!-- The line below can be used if we want to append some type of icon (pin or close?) to the chat -->
+        <!-- <v-icon color="white" slot="appendIcon">{{ item.model ? null : 'mdi-pin' }}</v-icon> -->
+        <template v-slot:activator>
+          <v-list-item-content>
+            <v-list-item-title class="white--text">{{ stakeholders.text }}</v-list-item-title>
+          </v-list-item-content>
+        </template>
+        <v-list-item
+          v-for="(child, i) in stakeholders.children"
+          :key="i"
+          link
+          :value="value"
+          @click="updateTitle"
+        >
+          <v-list-item-action v-if="child.icon">
+            <v-icon>{{ child.icon }}</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>{{ item.text }}</v-list-item-title>
+            <v-list-item-title>{{ child.text }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list-group>
+
+      <v-divider></v-divider>
+
+      <v-subheader>Recent chats</v-subheader>
+
+      <template v-for="chat in recentChats" :keys="chat.text" :router-to="chat.route">
+        <v-list-item :key="chat.text" link :value="value" @click="updateTitle">
+          <v-list-item-action>
+            <v-icon>{{ chat.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>{{ chat.text }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </template>
+
+      <v-divider></v-divider>
+
+      <v-subheader>Older chats</v-subheader>
+
+      <template v-for="chat in olderChats" :keys="chat.text" :router-to="chat.route">
+        <v-list-item :key="chat.text" link :value="value" @click="updateTitle">
+          <v-list-item-action>
+            <v-icon>{{ chat.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>{{ chat.text }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </template>
@@ -63,7 +95,20 @@ export default {
   data: () => {
     return {
       // showDrawer: null,
-      items: [
+      stakeholders: {
+        icon: "mdi-chevron-up",
+        "icon-alt": "mdi-account-tie",
+        text: "Stakeholders",
+        model: false,
+        children: [
+          { icon: "mdi-account", text: "A-heel" },
+          { icon: "mdi-account", text: "Prajet" },
+          { icon: "mdi-account", text: "Dayrick" },
+          { icon: "mdi-account", text: "Keknee" },
+          { icon: "mdi-account", text: "Pokemonaca" }
+        ]
+      },
+      recentChats: [
         // Implement favorites when all necessary features are done
         // {
         //   icon: "mdi-chevron-up",
@@ -78,30 +123,13 @@ export default {
         //     { icon: "mdi-account", text: "Aang" }
         //   ]
         // },
-        {
-          icon: "mdi-cog",
-          text: "Settings",
-          route: "/settings/user"
-        },
-        {
-          icon: "mdi-chevron-up",
-          "icon-alt": "mdi-account-tie",
-          text: "Stakeholders",
-          model: false,
-          children: [
-            { icon: "mdi-account", text: "A-heel" },
-            { icon: "mdi-account", text: "Prajet" },
-            { icon: "mdi-account", text: "Dayrick" },
-            { icon: "mdi-account", text: "Keknee" },
-            { icon: "mdi-account", text: "Pokemonaca" }
-          ]
-        },
-        { divider: true },
         { icon: "mdi-account", text: "Person 2" },
         { icon: "mdi-account-group", text: "Group 1" },
         { icon: "mdi-account", text: "Person 4" },
         { icon: "mdi-account", text: "Person 5" },
-        { icon: "mdi-account-group", text: "Group 2" },
+        { icon: "mdi-account-group", text: "Group 2" }
+      ],
+      olderChats: [
         { icon: "mdi-account-group", text: "Group 3" },
         { icon: "mdi-account-group", text: "Group 4" },
         { icon: "mdi-account", text: "Person 6" },

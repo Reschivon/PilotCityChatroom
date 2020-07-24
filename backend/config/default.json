@@ -28,5 +28,5 @@
       "passwordField": "password"
     }
   },
-  "mongodb": "mongodb+srv://app:FouM6L6X5pznW9FZxgkG@cluster0.rx5ja.azure.mongodb.net/Chatroom"
+  "mongodb": "mongodb+srv://app:FouM6L6X5pznW9FZxgkG@cluster.rx5ja.mongodb.net/Chatroom"
 }

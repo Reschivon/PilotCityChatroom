@@ -59,7 +59,7 @@ const router = new VueRouter({
 //   // Check to see if route requires auth
 //   if (to.matched.some((rec) => rec.meta.requiresAuth)) {
 //     // Check auth state of user
-//     services.messageclient
+//     services.client
 //       .reAuthenticate()
 //       .then(() => {
 //         next();

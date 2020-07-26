@@ -57,64 +57,32 @@
 </template>
 
 <script>
+import * as dataService from "../services/data"
+
 export default {
   name: "Sidebar",
   props: ["value"],
   data: () => {
     return {
-      // showDrawer: null,
-      items: [
-        // Implement favorites when all necessary features are done
-        // {
-        //   icon: "mdi-chevron-up",
-        //   "icon-alt": "mdi-heart",
-        //   text: "Favorites",
-        //   model: false,
-        //   children: [
-        //     { icon: "mdi-account", text: "Lin" },
-        //     { icon: "mdi-account", text: "Jeffery" },
-        //     { icon: "mdi-account", text: "Joe" },
-        //     { icon: "mdi-account", text: "Aditya" },
-        //     { icon: "mdi-account", text: "Aang" }
-        //   ]
-        // },
-        {
-          icon: "mdi-cog",
-          text: "Settings",
-          route: "/settings/user"
-        },
-        {
-          icon: "mdi-chevron-up",
-          "icon-alt": "mdi-account-tie",
-          text: "Stakeholders",
-          model: false,
-          children: [
-            { icon: "mdi-account", text: "A-heel" },
-            { icon: "mdi-account", text: "Prajet" },
-            { icon: "mdi-account", text: "Dayrick" },
-            { icon: "mdi-account", text: "Keknee" },
-            { icon: "mdi-account", text: "Pokemonaca" }
-          ]
-        },
-        { divider: true },
-        { icon: "mdi-account", text: "Person 2" },
-        { icon: "mdi-account-group", text: "Group 1" },
-        { icon: "mdi-account", text: "Person 4" },
-        { icon: "mdi-account", text: "Person 5" },
-        { icon: "mdi-account-group", text: "Group 2" },
-        { icon: "mdi-account-group", text: "Group 3" },
-        { icon: "mdi-account-group", text: "Group 4" },
-        { icon: "mdi-account", text: "Person 6" },
-        { icon: "mdi-account-group", text: "Group 5" },
-        { icon: "mdi-account-group", text: "Group 6" },
-        { icon: "mdi-account", text: "Person 7" }
-      ]
-    };
+      items: [],
+    }
   },
   methods: {
     updateTitle(event) {
       this.$emit("input", event.srcElement.outerText);
+    },
+    setData() {
+      this.items = dataService.data.rooms.map(room => {
+        return {
+          icon: "mdi-account-group",
+          text: room.name,
+        }
+      });
     }
-  }
+  },
+  async created() {
+    await dataService.fetchRooms();
+    this.setData();
+  },
 };
 </script>

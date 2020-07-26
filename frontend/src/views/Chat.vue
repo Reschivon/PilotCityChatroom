@@ -92,14 +92,12 @@
 
 <script>
 import * as services from "../services";
+//import * as dataService from "../services/data"
 import moment from "moment";
 
 import Message from "@/components/Message";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
-//import messageService from '@/services/index.js'
-
-console.log("authInfo", services.authInfo);
 
 export default {
   name: "Chat",
@@ -113,7 +111,8 @@ export default {
       // drawer: true
       title: "# Coding Interns",
       currentName: 0,
-      messages: {},
+      rooms: [],
+      messages: [],
       // formattedTimes: [],
       newMessage: null,
       colors: {
@@ -127,17 +126,26 @@ export default {
     };
   },
   methods: {
+    fetchRooms() {
+      services.roomService.find({}).then(rooms => {
+        console.log("rooms", rooms)
+        this.rooms = rooms.data;
+      }).catch(e => {
+        console.log("fetchRooms error: ", e);
+      });
+    },
     fetchMessages() {
       services.messageService
         .find({})
         .then(messages => {
-          console.log(messages);
+          console.log("messages", messages);
           this.messages = messages.data;
         })
         .catch(e => {
           console.log("fetchMessages error: ", e);
         });
     },
+
     sendMessage() {
       services.messageService.create({
         text: this.newMessage
@@ -171,9 +179,11 @@ export default {
       console.log("Created a message", message);
       this.messages.push(message);
     });
+    this.fetchRooms();
     this.fetchMessages();
+    
 
-    services.messageclient
+    services.client
       .reAuthenticate()
       .then(obj => {
         console.log(obj);

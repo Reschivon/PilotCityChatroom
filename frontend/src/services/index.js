@@ -15,11 +15,10 @@ client.configure(auth({
 
 export {client};
 export const messageService = client.service('messages');
-export const messageclient = client;
+export const roomService = client.service('rooms')
 
 // client.reAuthenticate().then((obj) => {
 //   console.log(obj);
-//   _authInfo = obj.user._id;
 // }).catch(e => {
 //   console.log(e)
 // })

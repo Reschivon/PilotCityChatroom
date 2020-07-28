@@ -10,37 +10,39 @@ module.exports = {
     all: [],
     find: [ authenticate('jwt') ],
     get: [ authenticate('jwt') ],
-    create: [ hashPassword('password'), async context => {
-      let input = context.data;
-      //const userService = app.service('users');
+    create: [ hashPassword('password'),
+      // make sure that all fields are valid and username isnt taken
+      async context => {
+        let input = context.data;
 
-      if (validator.isEmpty(input.firstname)) {
-          throw new Error('Please enter your first name.');
-      }
-      if (validator.isEmpty(input.lastname)) {
-        throw new Error('Please enter your last name.');
-      }
-      if (validator.isEmpty(input.email)) {
-          throw new Error('Please enter your email address.');
-      } else if (!validator.isEmail(input.email)) {
-          throw new Error('Please enter a valid email address.');
-      }
-      if (validator.isEmpty(input.username)) {
-        throw new Error('Please enter a username.');
-      }
-      if (validator.isEmpty(input.password)) {
-          throw new Error('Please enter a password for your account.');
-      }
+        if (validator.isEmpty(input.firstname)) {
+            throw new Error('Please enter your first name.');
+        }
+        if (validator.isEmpty(input.lastname)) {
+          throw new Error('Please enter your last name.');
+        }
+        if (validator.isEmpty(input.email)) {
+            throw new Error('Please enter your email address.');
+        } else if (!validator.isEmail(input.email)) {
+            throw new Error('Please enter a valid email address.');
+        }
+        if (validator.isEmpty(input.username)) {
+          throw new Error('Please enter a username.');
+        }
+        if (validator.isEmpty(input.password)) {
+            throw new Error('Please enter a password for your account.');
+        }
 
-      await context.service.find({
-          query: {
-              username: input.username
-          }
-      }).then((data) => {
-           if (data.data.length) {
-          throw new Error('This username is already in use by somebody else.');
+        await context.service.find({
+            query: {
+                username: input.username
+            }
+        }).then((data) => {
+            if (data.data.length) {
+            throw new Error('This username is already in use by somebody else.');
+        }
+        })
       }
-      })}
     ],
     update: [ hashPassword('password'),  authenticate('jwt') ],
     patch: [ hashPassword('password'),  authenticate('jwt') ],

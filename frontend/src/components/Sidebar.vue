@@ -16,6 +16,8 @@
         ></v-text-field>
       </template>-->
 
+      <!-- temporary button to join a room -->
+      <button @click="joinRoom('5f1cbbd0ff53b2d78e9965f8')">join room</button>
       <!-- Settings -->
       <v-list-item>
         <v-list-item-icon>
@@ -93,12 +95,14 @@
 </template>
 
 <script>
+import { roomService } from '../services';
 
 export default {
   name: "Sidebar",
   props: {
     currentRoom: String,
-    rooms: Array
+    rooms: Array,
+    currentUser: Object
     },
   data: () => {
     return {
@@ -156,6 +160,15 @@ export default {
     },
   },
   methods: {
+    // temporary method to join a room
+    async joinRoom(roomId) {
+      let room = await roomService.get(roomId, {});
+      console.log("room", room);
+      room.users.push(this.currentUser._id);
+      let response = {};
+      roomService.update(room._id, room, {}).then(stuff => response = stuff).catch(e => console.log("update", e));
+      console.log("response", response);
+    },
     updateCurrentRoom(room) {
       this.$emit("input", room);
     },

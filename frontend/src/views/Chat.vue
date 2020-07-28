@@ -1,7 +1,7 @@
 <template>
   <div class="chat" v-scroll:#chatWindow="scrollToBottom()">
     <Header :title="currentRoom.name" />
-    <Sidebar v-model="currentRoom" :rooms="rooms"/>
+    <Sidebar v-model="currentRoom" :rooms="rooms" :currentUser="currentUser"/>
     <!-- @toggleDrawer="drawer != drawer" -->
 
     <!-- Chat window -->
@@ -126,7 +126,7 @@ export default {
   },
   computed: {
     currentMessages() {
-      return this.allMessages.filter(message => message.room == this.currentRoom._id.toString())?? [];
+      return this.allMessages.filter(message => message.room == this.currentRoom._id?? []);
     },
   },
 
@@ -193,7 +193,7 @@ export default {
         // this.$router.push({ name: "Auth" });
         console.log(e);
     });
-    
+
     this.fetchRooms();
     this.fetchMessages();
 

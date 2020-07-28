@@ -1,3 +1,5 @@
+const { ObjectId } = require('mongodb');
+
 const { authenticate } = require('@feathersjs/authentication').hooks;
 
 module.exports = {
@@ -7,13 +9,22 @@ module.exports = {
       // find only the chatrooms that the user is a part of
       context => {
         const {user} = context.params;
-        context.params.query.users = String(user._id);
+        context.params.query.users = user._id;
         return context;
       }
     ],
     get: [],
     create: [],
-    update: [],
+    update: [
+      // change users ids from strings to ObjectId
+      context => {
+        context.data.users = context.data.users.map(user => {
+          if (typeof(user) != ObjectId) user = ObjectId(user);
+          return user;
+        });
+        return context;
+      }
+    ],
     patch: [],
     remove: []
   },

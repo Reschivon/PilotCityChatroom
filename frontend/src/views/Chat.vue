@@ -1,7 +1,7 @@
 <template>
   <div class="chat" v-scroll:#chatWindow="scrollToBottom()">
-    <Header :title="title" />
-    <Sidebar v-model="title" />
+    <Header :title="currentRoom.name" />
+    <Sidebar v-model="currentRoom" :rooms="rooms"/>
     <!-- @toggleDrawer="drawer != drawer" -->
 
     <!-- Chat window -->
@@ -11,13 +11,13 @@
     <v-main>
       <v-container class="secondary pl-3 pr-6 mb-n8" id="chatWindow" fluid>
         <Message
-          v-for="(message, index) in messages"
+          v-for="(message, index) in currentMessages"
           :key="index"
-          :is-owned="message.user.username == currentName"
+          :is-owned="message.user._id == currentUser._id"
           :content="message.text"
           :name="message.user.username"
           :timestamp="formatTime(message.createdAt)"
-          :group-with-prev-msg="sameSenderAndTime(message, messages[index - 1])"
+          :group-with-prev-msg="sameSenderAndTime(message, currentMessages[index - 1])"
         />
       </v-container>
     </v-main>
@@ -92,7 +92,6 @@
 
 <script>
 import * as services from "../services";
-//import * as dataService from "../services/data"
 import moment from "moment";
 
 import Message from "@/components/Message";
@@ -109,15 +108,15 @@ export default {
   data: () => {
     return {
       // drawer: true
-      title: "# Coding Interns",
-      currentName: 0,
+      currentUser: {},
+      currentRoom: {},
       rooms: [],
-      messages: [],
+      allMessages: [],
       // formattedTimes: [],
       newMessage: null,
       colors: {
         green: "#6eba7f"
-      }
+      },
       // Possible field validation for empty text area
       // windowHeight: null,
       // rules: {
@@ -125,11 +124,22 @@ export default {
       // }
     };
   },
+  computed: {
+    currentMessages() {
+      return this.allMessages.filter(message => message.room == this.currentRoom._id.toString())?? [];
+    },
+  },
+
   methods: {
     fetchRooms() {
       services.roomService.find({}).then(rooms => {
         console.log("rooms", rooms)
         this.rooms = rooms.data;
+        if (this.rooms.length == 0) {
+          // redirect to join room page
+        } else {
+          this.currentRoom = this.rooms[0];
+        }
       }).catch(e => {
         console.log("fetchRooms error: ", e);
       });
@@ -139,7 +149,7 @@ export default {
         .find({})
         .then(messages => {
           console.log("messages", messages);
-          this.messages = messages.data;
+          this.allMessages = messages.data;
         })
         .catch(e => {
           console.log("fetchMessages error: ", e);
@@ -148,13 +158,10 @@ export default {
 
     sendMessage() {
       services.messageService.create({
-        text: this.newMessage
+        room: this.currentRoom._id,
+        text: this.newMessage,
       });
       this.newMessage = "";
-      // .then((message) => {
-      //   this.messages.push(message);
-      //   this.newMessage = '';
-      // });
     },
     formatTime(time) {
       let formattedTime = moment(time).calendar();
@@ -175,25 +182,25 @@ export default {
   },
   created() {
     // this.windowHeight = document.getElementById("chatWindow").clientHeight;
-    services.messageService.on("created", message => {
-      console.log("Created a message", message);
-      this.messages.push(message);
-    });
-    this.fetchRooms();
-    this.fetchMessages();
-    
-
     services.client
       .reAuthenticate()
-      .then(obj => {
-        console.log(obj);
-        this.currentName = obj.user.username;
+      .then(auth => {
+        console.log(auth);
+        this.currentUser = auth.user;
       })
       .catch(e => {
         // Prevents users from logging in if unauthenticated
         // this.$router.push({ name: "Auth" });
         console.log(e);
-      });
+    });
+    
+    this.fetchRooms();
+    this.fetchMessages();
+
+    services.messageService.on("created", message => {
+      console.log("Created a message", message);
+      this.allMessages.push(message);
+    });
   }
 };
 </script>

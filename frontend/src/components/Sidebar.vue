@@ -39,8 +39,8 @@
           v-for="(child, i) in stakeholders.children"
           :key="i"
           link
-          :value="value"
-          @click="updateTitle"
+          :value="currentRoom"
+          @click="updateCurrentRoom(child)"
         >
           <v-list-item-action v-if="child.icon">
             <v-icon>{{ child.icon }}</v-icon>
@@ -55,17 +55,17 @@
 
       <v-subheader>Recent chats</v-subheader>
 
-      <template v-for="chat in recentChats" :keys="chat.name" :router-to="chat.route">
-        <v-list-item :key="chat.text" link :value="value" @click="updateTitle">
-          <v-list-item-avatar :color="chat.individual ? colors.green : null">
+      <template v-for="room in recentChats" :keys="room._id" :router-to="room.route">
+        <v-list-item :key="room._id" link :value="currentRoom" @click="updateCurrentRoom(room)">
+          <v-list-item-avatar :color="room.individual ? colors.green : null">
             <span
-              v-if="chat.individual"
+              v-if="room.individual"
               style="width: 100%; align-items: center"
-            >{{ getInitials(chat.name)}}</span>
-            <v-icon v-else>{{ chat.icon }}</v-icon>
+            >{{ getInitials(room.name)}}</span>
+            <v-icon v-else>{{ room.icon }}</v-icon>
           </v-list-item-avatar>
           <v-list-item-content>
-            <v-list-item-title>{{ chat.name }}</v-list-item-title>
+            <v-list-item-title>{{ room.name }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </template>
@@ -74,17 +74,17 @@
 
       <v-subheader>Older chats</v-subheader>
 
-      <template v-for="chat in olderChats" :keys="chat.name" :router-to="chat.route">
-        <v-list-item :key="chat.name" link :value="value" @click="updateTitle">
-          <v-list-item-avatar :color="chat.individual ? colors.green : null">
+      <template v-for="room in olderChats" :keys="room._id" :router-to="room.route">
+        <v-list-item :key="room._id" link :value="currentRoom" @click="updateCurrentRoom(room)">
+          <v-list-item-avatar :color="room.individual ? colors.green : null">
             <span
-              v-if="chat.individual"
+              v-if="room.individual"
               style="width: 100%; align-items: center"
-            >{{ getInitials(chat.name)}}</span>
-            <v-icon v-else>{{ chat.icon }}</v-icon>
+            >{{ getInitials(room.name)}}</span>
+            <v-icon v-else>{{ room.icon }}</v-icon>
           </v-list-item-avatar>
           <v-list-item-content>
-            <v-list-item-title>{{ chat.name }}</v-list-item-title>
+            <v-list-item-title>{{ room.name }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </template>
@@ -93,11 +93,13 @@
 </template>
 
 <script>
-import * as dataService from "../services/data";
 
 export default {
   name: "Sidebar",
-  props: ["value"],
+  props: {
+    currentRoom: String,
+    rooms: Array
+    },
   data: () => {
     return {
       colors: {
@@ -113,33 +115,56 @@ export default {
           { icon: "mdi-account", name: "Pokemonaca" }
         ]
       },
-      recentChats: [],
-      olderChats: [],
+      //rooms: []
+      //recentChats: [],
+      //olderChats: [],
     }
   },
-  methods: {
-    updateTitle(event) {
-      this.$emit("input", event.srcElement.outerText);
+  // computed doesnt work with props for some reason, only with data
+  computed: {
+    recentChats: function() {
+      // will have to do filter later
+      return this.rooms
+        /*
+        .filter(room => {
+
+        })
+        */
+        .map(room => {
+          return {
+            _id: room._id,
+            icon: room.users.length > 2? "mdi-account-group" : "mdi-account",
+            name: room.name,
+          };
+        });
     },
-    setData() {
-      // for now just going to add everying to recent chats 
-      this.recentChats = dataService.data.rooms.map(room => {
-        return {
-          icon: "mdi-account-group",
-          name: room.name,
-        }
-      });
+    olderChats: function() {
+      // will have to do filter later
+      return this.rooms
+        /*
+        .filter(room => {
+
+        })
+        */
+        .map(room => {
+          return {
+            _id: room._id,
+            icon: room.users.length > 2? "mdi-account-group" : "mdi-account",
+            name: room.name,
+          };
+        });
+    },
+  },
+  methods: {
+    updateCurrentRoom(room) {
+      this.$emit("input", room);
     },
     getInitials(fullName) {
-      let names = fullName.split(" ");
+      let names = fullName.split(" "); 
       let initials = "";
       names.forEach(name => (initials += name.substring(0, 1)));
       return initials;
     },
-  },
-  async created() {
-    await dataService.fetchRooms();
-    this.setData();
   },
 };
 </script>

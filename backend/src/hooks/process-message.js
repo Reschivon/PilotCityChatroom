@@ -1,6 +1,8 @@
 // Use this hook to manipulate incoming or outgoing data.
 // For more information on hooks see: http://docs.feathersjs.com/api/hooks.html
 
+const { ObjectId } = require("mongodb");
+
 // eslint-disable-next-line no-unused-vars
 module.exports = (options = {}) => {
   return async context => {
@@ -16,8 +18,8 @@ module.exports = (options = {}) => {
     // The actual message text
     // Make sure that messages are no longer than 400 characters
     const text = data.text.substring(0, 400);
-    // should check to see if user has this room later
-    const room = data.room;
+    // should add check to see if user has this room later
+    const room = ObjectId(data.room);
 
     // Update the original data (so that people can't submit additional stuff)
     context.data = {

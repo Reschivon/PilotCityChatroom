@@ -13,9 +13,9 @@
         <Message
           v-for="(message, index) in currentMessages"
           :key="index"
-          :is-owned="message.user._id == currentUser._id"
+          :is-owned="message.userId/*user._id*/ == currentUser._id"
           :content="message.text"
-          :name="message.user.username"
+          :name="message.userId/*user.username*/"
           :timestamp="formatTime(message.createdAt)"
           :group-with-prev-msg="sameSenderAndTime(message, currentMessages[index - 1])"
         />
@@ -139,6 +139,7 @@ export default {
           // redirect to join room page
         } else {
           this.currentRoom = this.rooms[0];
+          console.log("currentRoom", this.currentRoom);
         }
       }).catch(e => {
         console.log("fetchRooms error: ", e);

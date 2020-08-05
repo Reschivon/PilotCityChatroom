@@ -13,9 +13,9 @@
         <Message
           v-for="(message, index) in currentMessages"
           :key="index"
-          :is-owned="message.userId/*user._id*/ == currentUser._id"
+          :is-owned="message.userId == currentUser._id"
           :content="message.text"
-          :name="message.userId/*user.username*/"
+          :name="userOfId(message.userId).username"
           :timestamp="formatTime(message.createdAt)"
           :group-with-prev-msg="sameSenderAndTime(message, currentMessages[index - 1])"
         />
@@ -110,6 +110,7 @@ export default {
       // drawer: true
       currentUser: {},
       currentRoom: {},
+      users: [],
       rooms: [],
       allMessages: [],
       // formattedTimes: [],
@@ -131,6 +132,14 @@ export default {
   },
 
   methods: {
+    fetchUsers() {
+      services.userService.find({}).then(users => {
+        console.log("users", users);
+        this.users = users.data;
+      }).catch(e => {
+        console.log("fetchUsers error: ", e);
+      });
+    },
     fetchRooms() {
       services.roomService.find({}).then(rooms => {
         console.log("rooms", rooms)
@@ -164,6 +173,9 @@ export default {
       });
       this.newMessage = "";
     },
+    userOfId(id) {
+      return this.users.filter(user => user._id == id)[0];
+    },
     formatTime(time) {
       let formattedTime = moment(time).calendar();
       // this.formattedTimes.push(formattedTime);
@@ -181,7 +193,7 @@ export default {
       } else return false;
     }
   },
-  created() {
+  async created() {
     // this.windowHeight = document.getElementById("chatWindow").clientHeight;
     services.client
       .reAuthenticate()
@@ -194,7 +206,8 @@ export default {
         // this.$router.push({ name: "Auth" });
         console.log(e);
     });
-
+    await this.fetchUsers();
+    console.log("users", this.users);
     this.fetchRooms();
     this.fetchMessages();
 

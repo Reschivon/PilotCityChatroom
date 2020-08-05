@@ -1,6 +1,5 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
 
-const populateUser = require('../../hooks/populate-user');
 const processMessage = require('../../hooks/process-message');
 const restrictMessages = require('../../hooks/restrict-messages');
 
@@ -16,7 +15,7 @@ module.exports = {
   },
 
   after: {
-    all: [/*populateUser()*/],
+    all: [],
     find: [],
     get: [],
     create: [],

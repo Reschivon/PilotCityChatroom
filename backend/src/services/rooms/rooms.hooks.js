@@ -1,4 +1,5 @@
 const { ObjectId } = require('mongodb');
+const logger = require('../../logger'); 
 
 const { authenticate } = require('@feathersjs/authentication').hooks;
 
@@ -9,7 +10,7 @@ module.exports = {
       // find only the chatrooms that the user is a part of
       context => {
         const {user} = context.params;
-        context.params.query.users = user._id;
+        context.params.query.users = ObjectId(user._id);
         return context;
       }
     ],

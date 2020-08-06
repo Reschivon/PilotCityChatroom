@@ -32,7 +32,6 @@
               <MemberList @updatedMemberData="chat.members = $emit" :memberData="chat.members" :title="'Members'"/>
             </v-col>
           </v-row>
-          <p class="setting-information">{{ chat.name }}</p>
           <p class="setting-subheader">Password</p>
               <!-- #todo -->
             <ResetPasswordPopup :email="chat.name"/>
@@ -56,11 +55,11 @@ export default {
         titleVariable: 'members222',
         name: "Coding Interns",
         members:[
-          // {name: "Baby", lastName: "Joe", id: "123", pfp: "@/assets/pfp.png", isMember: true},
-          // {name: "Joe", lastName: "Mama", id: "345", pfp: "@/assets/pfp.png", isMember: false},
-          // {name: "Joe", lastName: "Papa", id: "567", pfp: "@/assets/pfp.png", isMember: true},
-          // {name: "Joe", lastName: "Guy", id: "432", pfp: "@/assets/pfp.png", isMember: true},
-          // {name: "Joe", lastName: "Grandma", id: "332", pfp: "@/assets/pfp.png", isMember: false},
+          {name: "Baby", lastName: "Joe", id: "123", pfp: "@/assets/pfp.png", isMember: true},
+          {name: "Joe", lastName: "Mama", id: "345", pfp: "@/assets/pfp.png", isMember: false},
+          {name: "Joe", lastName: "Papa", id: "567", pfp: "@/assets/pfp.png", isMember: true},
+          {name: "Joe", lastName: "Guy", id: "432", pfp: "@/assets/pfp.png", isMember: true},
+          {name: "Joe", lastName: "Grandma", id: "332", pfp: "@/assets/pfp.png", isMember: false},
         ],
         // currentUser: this.chat.members[0],
       },

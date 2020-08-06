@@ -22,21 +22,20 @@
             <p class="setting-subheader ml-3">Username</p>
             <v-col cols="14">
               <!-- if you want more values from 1 v model pass an array from child -->
-              <EditUsername v-model="user.username" :title="`Username`"/>
+              <EditUsername @input="updateUser" v-model="user.username" :title="`Username`"/>
             </v-col>
           </v-row>
           <p class="setting-information">{{ user.username }}</p>
           <v-row>
             <p class="setting-subheader ml-3">Email</p>
             <v-col cols="14">
-              <EditUsername v-model="user.email" :title="`Email`"/>
+              <EditUsername @input="updateUser" v-model="user.email" :title="`Email`"/>
             </v-col>
           </v-row>
           <p class="setting-information">{{ user.email }}</p>
           <p class="setting-subheader" >Password</p>
               <!-- #todo -->
             <ResetPasswordPopup :email="user.email"/>
-            <v-btn @click="updateUser">update</v-btn>
         </v-card>
       </v-container>
     </v-row>

@@ -19,6 +19,7 @@
       <!-- temporary button to join a room -->
       <button @click="joinRoom('5f1cbbd0ff53b2d78e9965f8')">join room</button>
       <!-- Settings -->
+      <router-link to="/settings/user">
       <v-list-item>
         <v-list-item-icon>
           <v-icon>mdi-cog</v-icon>
@@ -27,6 +28,7 @@
           <v-list-item-title>Settings</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
+      </router-link>
 
       <!-- Stakeholders -->
       <v-list-group v-model="stakeholders.model">

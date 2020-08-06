@@ -211,6 +211,8 @@ export default {
     this.fetchRooms();
     this.fetchMessages();
 
+    console.log("authentication", await services.client.get('authentication'));
+
     services.messageService.on("created", message => {
       console.log("Created a message", message);
       this.allMessages.push(message);

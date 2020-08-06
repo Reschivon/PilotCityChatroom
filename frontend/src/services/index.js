@@ -12,6 +12,8 @@ client.configure(auth({
 }));
 
 export { client };
+export { client };
+export const authenticationService = client.service('authentication');
 export const userService = client.service('users');
 export const messageService = client.service('messages');
 export const roomService = client.service('rooms');

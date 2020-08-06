@@ -46,6 +46,8 @@
 import Popup from "@/components/meetingSettingsComponents/LeaveMeetingPopup";
 import PopupEditData from "@/components/generalSettingsComponents/PopupEditData";
 import MemberList from "@/components/meetingSettingsComponents/MemberList";
+import services from "../services"
+
 export default {
   name: "SettingsContent",
   data() {
@@ -54,22 +56,27 @@ export default {
         titleVariable: 'members222',
         name: "Coding Interns",
         members:[
-          {name: "Baby", lastName: "Joe", id: "123", pfp: "@/assets/pfp.png", isMember: true},
-          {name: "Joe", lastName: "Mama", id: "345", pfp: "@/assets/pfp.png", isMember: false},
-          {name: "Joe", lastName: "Papa", id: "567", pfp: "@/assets/pfp.png", isMember: true},
-          {name: "Joe", lastName: "Guy", id: "432", pfp: "@/assets/pfp.png", isMember: true},
-          {name: "Joe", lastName: "Grandma", id: "332", pfp: "@/assets/pfp.png", isMember: false},
+          // {name: "Baby", lastName: "Joe", id: "123", pfp: "@/assets/pfp.png", isMember: true},
+          // {name: "Joe", lastName: "Mama", id: "345", pfp: "@/assets/pfp.png", isMember: false},
+          // {name: "Joe", lastName: "Papa", id: "567", pfp: "@/assets/pfp.png", isMember: true},
+          // {name: "Joe", lastName: "Guy", id: "432", pfp: "@/assets/pfp.png", isMember: true},
+          // {name: "Joe", lastName: "Grandma", id: "332", pfp: "@/assets/pfp.png", isMember: false},
         ],
         // currentUser: this.chat.members[0],
       },
     };
   },
   methods: {
-    getImgUrl() {
-      /*this method doesn't work, trying to make show picture dynamically
-            console.log("picture required by code")
-            return require("@/assets/pfp.png")
-*/
+    fetchUsers() {
+      services.userService
+        .find({})
+        .then(users => {
+          console.log("users", users);
+          this.members = users.data;
+        })
+        .catch(e => {
+          console.log("meetingSettingsService error: ", e);
+        });
     },
     emitData(data){
         console.log("clicked me");

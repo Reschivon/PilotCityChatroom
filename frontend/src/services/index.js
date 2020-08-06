@@ -1,5 +1,3 @@
-
-
 const io = require('socket.io-client');
 const feathers = require('@feathersjs/feathers');
 const socketio = require('@feathersjs/socketio-client');
@@ -10,10 +8,10 @@ const client = feathers();
 
 client.configure(socketio(socket));
 client.configure(auth({
-  storageKey: 'auth'
+    storageKey: 'auth'
 }));
 
-export {client};
+export { client };
 export const userService = client.service('users');
 export const messageService = client.service('messages');
 export const roomService = client.service('rooms');

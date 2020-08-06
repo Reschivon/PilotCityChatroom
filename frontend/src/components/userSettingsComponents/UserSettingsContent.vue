@@ -36,6 +36,7 @@
           <p class="setting-subheader" >Password</p>
               <!-- #todo -->
             <ResetPasswordPopup :email="user.email"/>
+            <v-btn @click="updateUser">update</v-btn>
         </v-card>
       </v-container>
     </v-row>
@@ -43,6 +44,7 @@
 </template>
 
 <script>
+import * as services from "../../services";
 import Popup from "@/components/generalSettingsComponents/ButtonPopup";
 import PopupEditData from "@/components/generalSettingsComponents/PopupEditData";
 export default {
@@ -64,10 +66,26 @@ export default {
             return require("@/assets/pfp.png")
 */
     },
+    updateUser() {
+      services.userService.update(
+        this.user._id, 
+        {
+          username: this.user.username,
+          email: this.user.email,
+        },
+        {}
+      )
+    },
     emitData(data){
         console.log("clicked me");
         this.$emit("input", data)
     }
+  },
+
+  async created() {
+    await services.client.reAuthenticate();
+    this.user = (await services.client.get('authentication')).user;
+    console.log("user", this.user);
   },
 
   components: {

@@ -17,17 +17,17 @@
       </template>-->
 
       <!-- temporary button to join a room -->
-      <button @click="joinRoom('5f1cbbd0ff53b2d78e9965f8')">join room</button>
+
       <!-- Settings -->
       <router-link to="/settings/user">
-      <v-list-item>
-        <v-list-item-icon>
-          <v-icon>mdi-cog</v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>Settings</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
+        <v-list-item>
+          <v-list-item-icon>
+            <v-icon>mdi-cog</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>Settings</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </router-link>
 
       <!-- Stakeholders -->
@@ -56,7 +56,9 @@
       </v-list-group>
 
       <v-divider></v-divider>
-
+      <p></p>
+      <v-btn class="ml-7" @click="joinRoom('5f1cbbd0ff53b2d78e9965f8')">Join Room</v-btn>
+      <p></p>
       <v-subheader>Recent chats</v-subheader>
 
       <template v-for="room in recentChats" :keys="room._id" :router-to="room.route">
@@ -97,7 +99,7 @@
 </template>
 
 <script>
-import { roomService } from '../services';
+import { roomService } from "../services";
 
 export default {
   name: "Sidebar",
@@ -105,7 +107,7 @@ export default {
     currentRoom: String,
     rooms: Array,
     currentUser: Object
-    },
+  },
   data: () => {
     return {
       colors: {
@@ -120,46 +122,50 @@ export default {
           { icon: "mdi-account", name: "Keknee" },
           { icon: "mdi-account", name: "Pokemonaca" }
         ]
-      },
+      }
       //rooms: []
       //recentChats: [],
       //olderChats: [],
-    }
+    };
   },
   // computed doesnt work with props for some reason, only with data
   computed: {
     recentChats: function() {
       // will have to do filter later
-      return this.rooms
-        /*
+      return (
+        this.rooms
+          /*
         .filter(room => {
 
         })
         */
-        .map(room => {
-          return {
-            _id: room._id,
-            icon: room.users.length > 2? "mdi-account-group" : "mdi-account",
-            name: room.name,
-          };
-        });
+          .map(room => {
+            return {
+              _id: room._id,
+              icon: room.users.length > 2 ? "mdi-account-group" : "mdi-account",
+              name: room.name
+            };
+          })
+      );
     },
     olderChats: function() {
       // will have to do filter later
-      return this.rooms
-        /*
+      return (
+        this.rooms
+          /*
         .filter(room => {
 
         })
         */
-        .map(room => {
-          return {
-            _id: room._id,
-            icon: room.users.length > 2? "mdi-account-group" : "mdi-account",
-            name: room.name,
-          };
-        });
-    },
+          .map(room => {
+            return {
+              _id: room._id,
+              icon: room.users.length > 2 ? "mdi-account-group" : "mdi-account",
+              name: room.name
+            };
+          })
+      );
+    }
   },
   methods: {
     // temporary method to join a room
@@ -168,18 +174,21 @@ export default {
       console.log("room", room);
       room.users.push(this.currentUser._id);
       let response = {};
-      roomService.update(room._id, room, {}).then(stuff => response = stuff).catch(e => console.log("update", e));
+      roomService
+        .update(room._id, room, {})
+        .then(stuff => (response = stuff))
+        .catch(e => console.log("update", e));
       console.log("response", response);
     },
     updateCurrentRoom(room) {
       this.$emit("input", room);
     },
     getInitials(fullName) {
-      let names = fullName.split(" "); 
+      let names = fullName.split(" ");
       let initials = "";
       names.forEach(name => (initials += name.substring(0, 1)));
       return initials;
-    },
-  },
+    }
+  }
 };
 </script>

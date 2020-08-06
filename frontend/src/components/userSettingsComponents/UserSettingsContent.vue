@@ -70,8 +70,10 @@ export default {
       services.userService.update(
         this.user._id, 
         {
-          username: this.user.username,
-          email: this.user.email,
+          $set: {
+            username: this.user.username,
+            email: this.user.email,
+          }
         },
         {}
       )

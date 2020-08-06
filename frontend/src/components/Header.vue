@@ -32,7 +32,7 @@
         width="26"
       />
       <v-toolbar-title class="flex-grow-1 flex-shrink-1 d-flex justify-center">
-        <span class="chatTitle">{{ title }}</span>
+        <span class="chatTitle">{{ room.name }}</span>
       </v-toolbar-title>
       <!-- Temporary settings button via the pencil sign -->
       <router-link to="/settings/meeting">
@@ -47,7 +47,9 @@
 <script>
 export default {
   name: "Header",
-  props: ["title"],
+  props: {
+    room: Object
+  },
   data: () => {
     return {
       // colors: {

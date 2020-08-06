@@ -1,6 +1,6 @@
 <template>
   <div class="chat" v-scroll:#chatWindow="scrollToBottom()">
-    <Header :title="currentRoom.name" />
+    <Header :room="currentRoom" />
     <Sidebar v-model="currentRoom" :rooms="rooms" :currentUser="currentUser"/>
     <!-- @toggleDrawer="drawer != drawer" -->
 

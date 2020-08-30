@@ -108,11 +108,6 @@ export default {
   data: () => {
     return {
       // drawer: true
-      currentUser: {},
-      currentRoom: {},
-      users: [],
-      rooms: [],
-      allMessages: [],
       // formattedTimes: [],
       newMessage: null,
       colors: {
@@ -126,46 +121,25 @@ export default {
     };
   },
   computed: {
+    currentUser() {
+      return this.$store.state.currentUser;
+    },
+    currentRoom() {
+      return this.$store.state.currentRoom;
+    },
     currentMessages() {
-      return this.allMessages.filter(message => message.room == this.currentRoom._id?? []);
+      console.log("currenting messages");
+      return this.$store.state.messages.filter(message => message.room == this.currentRoom._id?? []);
+    },
+    users() {
+      return this.$store.state.users;
+    },
+    rooms() {
+      return this.$store.state.rooms;
     },
   },
 
   methods: {
-    fetchUsers() {
-      services.userService.find({}).then(users => {
-        console.log("users", users);
-        this.users = users.data;
-      }).catch(e => {
-        console.log("fetchUsers error: ", e);
-      });
-    },
-    fetchRooms() {
-      services.roomService.find({}).then(rooms => {
-        console.log("rooms", rooms)
-        this.rooms = rooms.data;
-        if (this.rooms.length == 0) {
-          // redirect to join room page
-        } else {
-          this.currentRoom = this.rooms[0];
-          console.log("currentRoom", this.currentRoom);
-        }
-      }).catch(e => {
-        console.log("fetchRooms error: ", e);
-      });
-    },
-    fetchMessages() {
-      services.messageService
-        .find({})
-        .then(messages => {
-          console.log("messages", messages);
-          this.allMessages = messages.data;
-        })
-        .catch(e => {
-          console.log("fetchMessages error: ", e);
-        });
-    },
-
     sendMessage() {
       services.messageService.create({
         room: this.currentRoom._id,
@@ -199,24 +173,19 @@ export default {
       .reAuthenticate()
       .then(auth => {
         console.log(auth);
-        this.currentUser = auth.user;
+        this.$store.dispatch('setCurrentUser', auth.user);
       })
       .catch(e => {
         // Prevents users from logging in if unauthenticated
         // this.$router.push({ name: "Auth" });
         console.log(e);
     });
-    await this.fetchUsers();
-    console.log("users", this.users);
-    this.fetchRooms();
-    this.fetchMessages();
+    await this.$store.dispatch('fetchRooms');
+    await this.$store.dispatch('fetchUsers');
+    await this.$store.dispatch('fetchMessages');
 
     console.log("authentication", await services.client.get('authentication'));
 
-    services.messageService.on("created", message => {
-      console.log("Created a message", message);
-      this.allMessages.push(message);
-    });
   }
 };
 </script>

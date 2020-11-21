@@ -215,21 +215,7 @@ export default {
   }),
   methods: {
     signup() {
-      services.client
-        .service("users")
-        .create({
-          username: this.username,
-          email: this.email,
-          firstname: this.firstname,
-          lastname: this.lastname,
-          password: this.password
-        })
-        .then(user => {
-          console.log(user);
-        })
-        .catch(e => {
-          console.log(e);
-        });
+      services.registerUserEmailPassword(this.email, this.password)
     },
     signin() {
       services.client

@@ -12,35 +12,50 @@ client.configure(auth({
 }));
 
 export { client };
-// export { client };
 export const authenticationService = client.service('authentication');
 export const userService = client.service('users');
 export const messageService = client.service('messages');
 export const roomService = client.service('rooms');
 
-// client.reAuthenticate().then((obj) => {
-//   console.log(obj);
-// }).catch(e => {
-//   console.log(e)
-// })
-// messageService.on('created', message => {
-//   console.log('Created a message', message);
-//   messages.push(message)
-// });
-/*
-// Use the messages service from the server
-messageService.create({
-  text: 'Message from client',
-});
-messageService.find({}).then((data) => {
-  console.log("found messages: ", data);
-})
 
-socket.emit('find', 'messages', {}, (error, data) => {
-  console.log('all messages', data)
-});
-messageService.find({}).then(messages => console.log(messages));
-messageService.on('created', (e) => {
-  console.log("event", e)
-})
-*/
+
+
+
+
+
+
+/* eslint-disable no-unused-vars */
+const Realm = require("realm-web")
+// const users = require("./users.ts");
+// const schemas = require("./schemas.ts");
+
+const app = new Realm.App({ id: "chatrooms-pezkx" });
+
+export { app };
+export async function handleLogin(email, password) {
+  const credentials = Realm.Credentials.emailPassword(email, password);
+  try {
+    const user = await app.logIn(credentials);
+    console.log("realm user login: ", user);
+    return user;
+  } catch(e) {
+    console.log("failed realm login: ", e);
+  }
+};
+
+
+
+
+export var registerUserEmailPassword = async function(email, password) {
+
+  await app.emailPasswordAuth.registerUser(email, password);
+  const credentials = Realm.Credentials.emailPassword(email, password);
+  try {
+      const user = await app.logIn(credentials);
+      console.log("user: ", user);
+  }
+  catch(error) {
+      console.log("registration error: ", error);
+  }
+
+}

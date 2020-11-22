@@ -25,14 +25,16 @@ export const roomService = client.service('rooms');
 
 
 /* eslint-disable no-unused-vars */
-import Realm from "realm-web";
+import * as Realm from "realm-web";
 // const users = require("./users.ts");
 // const schemas = require("./schemas.ts");
 
 const app = new Realm.App({ id: "chatrooms-pezkx" });
 
 export { app };
-export async function loginUserEmailPassword(email: string, password: string) {
+
+
+export async function loginUserEmailPassword(email, password) {
   const credentials = Realm.Credentials.emailPassword(email, password);
   try {
     const user = await app.logIn(credentials);
@@ -44,7 +46,7 @@ export async function loginUserEmailPassword(email: string, password: string) {
 };
 
 
-export async function registerUserEmailPassword(email: string, password: string) {
+export async function registerUserEmailPassword(email, password) {
   await app.emailPasswordAuth.registerUser(email, password);
   const credentials = Realm.Credentials.emailPassword(email, password);
 
@@ -53,11 +55,20 @@ export async function registerUserEmailPassword(email: string, password: string)
       console.log("user: ", user);
       return user;
   }
-  catch(error) {
-      console.log("registration error: ", error);
+  catch(e) {
+      console.log("registration error: ", e);
   }
 };
 
-export async function updateUserDocument(userId: string) {
-  
+export async function updateUserDocument(userData) {
+  // see https://docs.mongodb.com/realm/web/mongodb/#instantiate-a-mongodb-collection-handle
+  const mongo = app.services.mongodb("mongodb-atlas"); // why does this not exist?
+  const mongoCollection = mongo.db("chatrooms").collection("users");
+
+  try {
+    // update user data for app.currentUser
+  }
+  catch (e) {
+    console.log(e);
+  }
 };

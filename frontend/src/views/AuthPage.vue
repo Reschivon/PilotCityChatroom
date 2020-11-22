@@ -216,6 +216,11 @@ export default {
   methods: {
     signup() {
       services.registerUserEmailPassword(this.email, this.password);
+      services.updateUserDocument({
+          username: this.username,
+          firstname: this.firstname,
+          lastname: this.lastname,
+      });
     },
     signin() {
       services.client
@@ -229,7 +234,6 @@ export default {
           this.login = "";
           this.password = "";
           console.log(auth);
-          this.$store.dispatch('setCurrentUser', auth.user);
         })
         .catch(e => {
           // Show login page (potentially with `e.message`)

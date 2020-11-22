@@ -169,7 +169,7 @@
 
 <script>
 import Header from "@/components/Header";
-import * as services from "../services";
+import * as services from "../services/index.ts";
 
 export default {
   name: "Auth",
@@ -215,7 +215,7 @@ export default {
   }),
   methods: {
     signup() {
-      services.registerUserEmailPassword(this.email, this.password)
+      services.registerUserEmailPassword(this.email, this.password);
     },
     signin() {
       services.client

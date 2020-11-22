@@ -99,7 +99,7 @@
 </template>
 
 <script>
-import { roomService } from "../services";
+import { roomService } from "../services/index.ts";
 
 export default {
   name: "Sidebar",

@@ -91,7 +91,7 @@
 </template>
 
 <script>
-import * as services from "../services";
+import * as services from "../services/index.ts";
 import moment from "moment";
 
 import Message from "@/components/Message";

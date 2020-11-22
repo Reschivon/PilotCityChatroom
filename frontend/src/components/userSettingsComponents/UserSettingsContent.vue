@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import * as services from "../../services";
+import * as services from "../../services/index.ts";
 import Popup from "@/components/generalSettingsComponents/ButtonPopup";
 import PopupEditData from "@/components/generalSettingsComponents/PopupEditData";
 export default {

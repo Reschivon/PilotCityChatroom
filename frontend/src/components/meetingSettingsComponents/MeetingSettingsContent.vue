@@ -45,7 +45,7 @@
 import Popup from "@/components/meetingSettingsComponents/LeaveMeetingPopup";
 import PopupEditData from "@/components/generalSettingsComponents/PopupEditData";
 import MemberList from "@/components/meetingSettingsComponents/MemberList";
-import * as services from "../../services"
+import * as services from "../../services/index.ts"
 
 export default {
   name: "SettingsContent",

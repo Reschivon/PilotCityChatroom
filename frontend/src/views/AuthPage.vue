@@ -229,6 +229,7 @@ export default {
           this.login = "";
           this.password = "";
           console.log(auth);
+          this.$store.dispatch('setCurrentUser', auth.user);
         })
         .catch(e => {
           // Show login page (potentially with `e.message`)

@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import * as services from "./services/index.ts";
 export default {
   name: "App",
 
@@ -14,7 +15,7 @@ export default {
 
   data: () => ({
     //
-  })
+  }),
   // mounted: function() {
   //   let elHtml = document.getElementsByTagName("html")[0];
   //   elHtml.style.overflowY = "auto";
@@ -23,6 +24,12 @@ export default {
   //   let elHtml = document.getElementsByTagName("html")[0];
   //   elHtml.style.overflowY = null;
   // }
+  created() {
+    services.messageService.on("created", message => {
+      console.log("Created a message", message);
+      this.$store.dispatch('pushMessage', message);
+    });
+  }
 };
 </script>
 

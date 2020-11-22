@@ -104,9 +104,9 @@ import { roomService } from "../services/index.ts";
 export default {
   name: "Sidebar",
   props: {
-    currentRoom: String,
+    /*currentRoom: String,
     rooms: Array,
-    currentUser: Object
+    currentUser: Object*/
   },
   data: () => {
     return {
@@ -128,8 +128,16 @@ export default {
       //olderChats: [],
     };
   },
-  // computed doesnt work with props for some reason, only with data
   computed: {
+    rooms() {
+      return this.$store.state.rooms;
+    },
+    currentRoom() {
+      return this.$store.state.currentRoom;
+    },
+    currentUser() {
+      return this.$store.state.currentUser;
+    },
     recentChats: function() {
       // will have to do filter later
       return (
@@ -181,7 +189,7 @@ export default {
       console.log("response", response);
     },
     updateCurrentRoom(room) {
-      this.$emit("input", room);
+      this.$store.dispatch('setCurrentRoom', room);
     },
     getInitials(fullName) {
       let names = fullName.split(" ");

@@ -2,7 +2,12 @@
   <!-- Took out v-model="showDrawer" from v-navigation-drawer -->
   <!-- Hiding the drawer with a button is not needed -->
 
-  <v-navigation-drawer app class="primary" dark :clipped="$vuetify.breakpoint.lgAndUp">
+  <v-navigation-drawer
+    app
+    class="primary"
+    dark
+    :clipped="$vuetify.breakpoint.lgAndUp"
+  >
     <v-list dense>
       <!-- Remove searchbar until fully implemented -->
       <!-- <template>
@@ -36,7 +41,9 @@
         <v-icon color="white" slot="appendIcon">mdi-chevron-down</v-icon>
         <template v-slot:activator>
           <v-list-item-content>
-            <v-list-item-title class="white--text">Stakeholders</v-list-item-title>
+            <v-list-item-title class="white--text"
+              >Stakeholders</v-list-item-title
+            >
           </v-list-item-content>
         </template>
         <v-list-item
@@ -57,17 +64,29 @@
 
       <v-divider></v-divider>
       <p></p>
-      <v-btn class="ml-7" @click="joinRoom('5f1cbbd0ff53b2d78e9965f8')">Join Room</v-btn>
+      <v-btn class="ml-7" @click="joinRoom('5f1cbbd0ff53b2d78e9965f8')"
+        >Join Room</v-btn
+      >
       <p></p>
       <v-subheader>Recent chats</v-subheader>
 
-      <template v-for="room in recentChats" :keys="room._id" :router-to="room.route">
-        <v-list-item :key="room._id" link :value="currentRoom" @click="updateCurrentRoom(room)">
+      <template
+        v-for="room in recentChats"
+        :keys="room._id"
+        :router-to="room.route"
+      >
+        <v-list-item
+          :key="room._id"
+          link
+          :value="currentRoom"
+          @click="updateCurrentRoom(room)"
+        >
           <v-list-item-avatar :color="room.individual ? colors.green : null">
             <span
               v-if="room.individual"
               style="width: 100%; align-items: center"
-            >{{ getInitials(room.name)}}</span>
+              >{{ getInitials(room.name) }}</span
+            >
             <v-icon v-else>{{ room.icon }}</v-icon>
           </v-list-item-avatar>
           <v-list-item-content>
@@ -80,13 +99,23 @@
 
       <v-subheader>Older chats</v-subheader>
 
-      <template v-for="room in olderChats" :keys="room._id" :router-to="room.route">
-        <v-list-item :key="room._id" link :value="currentRoom" @click="updateCurrentRoom(room)">
+      <template
+        v-for="room in olderChats"
+        :keys="room._id"
+        :router-to="room.route"
+      >
+        <v-list-item
+          :key="room._id"
+          link
+          :value="currentRoom"
+          @click="updateCurrentRoom(room)"
+        >
           <v-list-item-avatar :color="room.individual ? colors.green : null">
             <span
               v-if="room.individual"
               style="width: 100%; align-items: center"
-            >{{ getInitials(room.name)}}</span>
+              >{{ getInitials(room.name) }}</span
+            >
             <v-icon v-else>{{ room.icon }}</v-icon>
           </v-list-item-avatar>
           <v-list-item-content>
@@ -189,7 +218,7 @@ export default {
       console.log("response", response);
     },
     updateCurrentRoom(room) {
-      this.$store.dispatch('setCurrentRoom', room);
+      this.$store.dispatch("setCurrentRoom", room);
     },
     getInitials(fullName) {
       let names = fullName.split(" ");

@@ -1,22 +1,19 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import Vue from "vue";
+import Vuex from "vuex";
 /* eslint-disable no-unused-vars */
-import * as services from '../services/index.ts';
+import * as services from "@/services/";
 
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
-  
   state: {
     currentUser: {},
     currentRoom: {},
     rooms: [],
     users: [],
-    messages: [],
+    messages: []
   },
-  getters: {
-
-  },
+  getters: {},
   mutations: {
     setCurrentUser: (state, payload) => {
       state.currentUser = payload;
@@ -34,20 +31,20 @@ export const store = new Vuex.Store({
       state.messages = payload;
     },
     pushMessage: (state, payload) => {
-      state.messages.push(payload);
-    },
+      state.messages.push(payload as never);
+    }
   },
   actions: {
     setCurrentUser: (context, payload) => {
-      context.commit('setCurrentUser', payload);
+      context.commit("setCurrentUser", payload);
     },
     setCurrentRoom: (context, payload) => {
-      context.commit('setCurrentRoom', payload);
+      context.commit("setCurrentRoom", payload);
     },
     fetchRooms: async context => {
       try {
         let rooms = (await services.roomService.find({})).data;
-        context.commit('fetchRooms', rooms);
+        context.commit("fetchRooms", rooms);
       } catch (e) {
         console.log("fetchRooms exception: ", e);
       }
@@ -55,7 +52,7 @@ export const store = new Vuex.Store({
     fetchUsers: async context => {
       try {
         let users = (await services.userService.find({})).data;
-        context.commit('fetchUsers', users);
+        context.commit("fetchUsers", users);
       } catch (e) {
         console.log("fetchUsers exception: ", e);
       }
@@ -63,14 +60,14 @@ export const store = new Vuex.Store({
     fetchMessages: async context => {
       try {
         let users = (await services.messageService.find({})).data;
-        context.commit('fetchMessages', users);
+        context.commit("fetchMessages", users);
       } catch (e) {
         console.log("fetchMessages exception: ", e);
       }
     },
     pushMessage: (context, payload) => {
-      context.commit('pushMessage', payload)
-    },
+      context.commit("pushMessage", payload);
+    }
   }
-})
+});
 /* eslint-enable no-unused-vars */

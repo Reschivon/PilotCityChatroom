@@ -1,4 +1,4 @@
-  <!-- TODO: add overflow property to title -->
+<!-- TODO: add overflow property to title -->
 
 <template>
   <div class="header">
@@ -22,7 +22,13 @@
         <span class="hidden-sm-and-down">PilotCity</span>
       </v-toolbar-title>
     </v-app-bar>
-    <v-app-bar app dense class="header primary flex-grow-1 flex-shrink-1" dark flat>
+    <v-app-bar
+      app
+      dense
+      class="header primary flex-grow-1 flex-shrink-1"
+      dark
+      flat
+    >
       <v-img
         alt="PilotCity Logo"
         class="shrink hidden-lg-and-up"
@@ -44,8 +50,11 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from "vue";
+
+
+const Header = Vue.extend({
   name: "Header",
   props: {
     room: Object
@@ -62,5 +71,7 @@ export default {
       this.$emit("toggleDrawer");
     }
   }
-};
+});
+
+export default Header;
 </script>

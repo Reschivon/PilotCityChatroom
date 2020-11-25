@@ -10,7 +10,12 @@
                 <v-col cols="12" md="8" class="pt-6 pb-6">
                   <v-card-text>
                     <v-form class="signup-form-form" @submit.prevent="signin">
-                      <h1 class="text-center display-1 mb-10" :class="`${bgColor}--text`">Sign in</h1>
+                      <h1
+                        class="text-center display-1 mb-10"
+                        :class="`${bgColor}--text`"
+                      >
+                        Sign in
+                      </h1>
                       <v-text-field
                         id="username"
                         v-model="login"
@@ -33,15 +38,23 @@
                           class="mt-3 overline no-text-decoration"
                           :class="`${bgColor}--text`"
                           @click="step = 3"
-                        >Forgot your password?</a>
+                          >Forgot your password?</a
+                        >
                       </div>
                       <div class="text-center mt-6">
-                        <v-btn type="submit" large :color="bgColor" dark>Sign In</v-btn>
+                        <v-btn type="submit" large :color="bgColor" dark
+                          >Sign In</v-btn
+                        >
                       </div>
                     </v-form>
                   </v-card-text>
                 </v-col>
-                <v-col cols="12" md="4" class="darken-2 vcenter" :class="`${bgColor}`">
+                <v-col
+                  cols="12"
+                  md="4"
+                  class="darken-2 vcenter"
+                  :class="`${bgColor}`"
+                >
                   <div>
                     <v-card-text :class="`${fgColor}--text`">
                       <h1 class="text-center headline mb-3">New User?</h1>
@@ -57,11 +70,18 @@
             <!--SignUp-->
             <v-window-item :value="2">
               <v-row class="fill-height">
-                <v-col cols="12" md="4" class="darken-2 vcenter" :class="`${bgColor}`">
+                <v-col
+                  cols="12"
+                  md="4"
+                  class="darken-2 vcenter"
+                  :class="`${bgColor}`"
+                >
                   <div>
                     <v-card-text :class="`${fgColor}--text`">
                       <h1 class="text-center headline mb-3">Already a user?</h1>
-                      <h5 class="text-center overline mb-3">Sign In To Enter</h5>
+                      <h5 class="text-center overline mb-3">
+                        Sign In To Enter
+                      </h5>
                     </v-card-text>
                     <div class="text-center mb-6">
                       <v-btn dark outlined @click="step = 1">Sign In</v-btn>
@@ -70,7 +90,12 @@
                 </v-col>
                 <v-col cols="12" md="8" class="pt-6 pb-6">
                   <v-card-text>
-                    <h1 class="text-center display-1 mb-10" :class="`${bgColor}--text`">Sign Up</h1>
+                    <h1
+                      class="text-center display-1 mb-10"
+                      :class="`${bgColor}--text`"
+                    >
+                      Sign Up
+                    </h1>
                     <v-form class="signup-form-form" @submit.prevent="signup">
                       <v-text-field
                         id="firstname"
@@ -115,7 +140,9 @@
                         type="password"
                       />
                       <div class="text-center mt-6">
-                        <v-btn type="submit" large :color="bgColor" dark>Sign Up</v-btn>
+                        <v-btn type="submit" large :color="bgColor" dark
+                          >Sign Up</v-btn
+                        >
                       </div>
                     </v-form>
                   </v-card-text>
@@ -125,7 +152,12 @@
             <!--PW Rest-->
             <v-window-item :value="3">
               <v-row class="fill-height">
-                <v-col cols="12" md="4" class="darken-2 vcenter" :class="`${bgColor}`">
+                <v-col
+                  cols="12"
+                  md="4"
+                  class="darken-2 vcenter"
+                  :class="`${bgColor}`"
+                >
                   <div>
                     <v-card-text :class="`${fgColor}--text`">
                       <h1 class="text-center headline mb-3">Already a user?</h1>
@@ -142,7 +174,9 @@
                       <h1
                         class="text-center display-1 mb-10"
                         :class="`${bgColor}--text`"
-                      >Reset Password</h1>
+                      >
+                        Reset Password
+                      </h1>
                       <v-text-field
                         id="login"
                         v-model="login"
@@ -153,7 +187,9 @@
                         class="v-input__icon--double"
                       />
                       <div class="text-center mt-6">
-                        <v-btn large :color="bgColor" dark>Reset Password</v-btn>
+                        <v-btn large :color="bgColor" dark
+                          >Reset Password</v-btn
+                        >
                       </div>
                     </v-form>
                   </v-card-text>
@@ -217,9 +253,9 @@ export default {
     signup() {
       services.registerUserEmailPassword(this.email, this.password);
       services.updateUserDocument({
-          username: this.username,
-          firstname: this.firstname,
-          lastname: this.lastname,
+        username: this.username,
+        firstname: this.firstname,
+        lastname: this.lastname
       });
     },
     signin() {

@@ -41,21 +41,21 @@ export default {
     content: String,
     name: String,
     timestamp: String,
-    groupWithPrevMsg: Boolean,
+    groupWithPrevMsg: Boolean
   },
   data: () => {
     return {
       picture: "mdi-account",
       colors: {
-        green: "#6EBA7F",
-      },
+        green: "#6EBA7F"
+      }
     };
   },
   computed: {
     initials() {
       let names = this.name.split(" ");
       let initials = "";
-      names.forEach((name) => (initials += name.substring(0, 1)));
+      names.forEach(name => (initials += name.substring(0, 1)));
       return initials;
     },
     // Created this computed property because if groupWithPrevMsg is true
@@ -65,7 +65,7 @@ export default {
     // **NOTE: For use ONLY with v-if!!!**
     shouldBeGrouped() {
       return !this.groupWithPrevMsg;
-    },
+    }
   },
   methods: {
     owned() {
@@ -81,10 +81,10 @@ export default {
     },
     styleSideSpacing() {
       return this.groupWithPrevMsg ? "ml-14" : "ml-2";
-    },
+    }
   },
   mounted() {
     console.log(this.groupWithPrevMsg);
-  },
+  }
 };
 </script>

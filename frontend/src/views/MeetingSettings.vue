@@ -11,7 +11,6 @@
   </div>
 </template>
 
-
 <script>
 import Header from "@/components/generalSettingsComponents/SettingsHeader";
 import SettingsContent from "@/components/meetingSettingsComponents/MeetingSettingsContent";

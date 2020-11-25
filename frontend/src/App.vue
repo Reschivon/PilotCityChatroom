@@ -27,7 +27,7 @@ export default {
   created() {
     services.messageService.on("created", message => {
       console.log("Created a message", message);
-      this.$store.dispatch('pushMessage', message);
+      this.$store.dispatch("pushMessage", message);
     });
   }
 };

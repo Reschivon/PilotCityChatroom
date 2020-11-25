@@ -8,22 +8,22 @@
         <div class="button-block">
           <button @click="AuthPage">Start Here</button>
         </div>
-      </div>
-  </section>
-</div>
 </template>
-<script>
-export default {
-  name: 'Home',
-  components: {
-  },
+
+<script lang="ts">
+import Vue from "vue"
+
+const Home = Vue.extend({
+  name: "Home",
   methods: {
     AuthPage () {
       this.$router.push('/auth');
     }
   }
-}
+});
+export default Home;
 </script>
+
 <style lang="scss" scoped>
   .home {  
     background: #4F4F4f;

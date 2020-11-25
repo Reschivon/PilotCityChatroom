@@ -8,6 +8,9 @@
         <div class="button-block">
           <button @click="AuthPage">Start Here</button>
         </div>
+    </div>
+  </section>
+</div>
 </template>
 
 <script lang="ts">

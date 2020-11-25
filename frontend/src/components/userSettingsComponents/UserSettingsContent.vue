@@ -10,9 +10,11 @@
         max-width="300"
       />
     </v-row>
-    <!--Settings--> 
+    <!--Settings-->
     <v-row align="center" justify="center">
-      <h1 class="text-decoration-underline big-letters white--text">Settings</h1>
+      <h1 class="text-decoration-underline big-letters white--text">
+        Settings
+      </h1>
     </v-row>
     <!--General Settings Information-->
     <v-row align="center" justify="center">
@@ -22,20 +24,28 @@
             <p class="setting-subheader ml-3">Username</p>
             <v-col cols="14">
               <!-- if you want more values from 1 v model pass an array from child -->
-              <EditUsername @input="updateUser" v-model="user.username" :title="`Username`"/>
+              <EditUsername
+                @input="updateUser"
+                v-model="user.username"
+                :title="`Username`"
+              />
             </v-col>
           </v-row>
           <p class="setting-information">{{ user.username }}</p>
           <v-row>
             <p class="setting-subheader ml-3">Email</p>
             <v-col cols="14">
-              <EditUsername @input="updateUser" v-model="user.email" :title="`Email`"/>
+              <EditUsername
+                @input="updateUser"
+                v-model="user.email"
+                :title="`Email`"
+              />
             </v-col>
           </v-row>
           <p class="setting-information">{{ user.email }}</p>
-          <p class="setting-subheader" >Password</p>
-              <!-- #todo -->
-            <ResetPasswordPopup :email="user.email"/>
+          <p class="setting-subheader">Password</p>
+          <!-- #todo -->
+          <ResetPasswordPopup :email="user.email" />
         </v-card>
       </v-container>
     </v-row>
@@ -55,7 +65,7 @@ export default {
         myPfp: "@/assets/pfp.png",
         username: "FlexibleMonsterPoop",
         email: "CodingInterns@pc.net"
-      },
+      }
     };
   },
   methods: {
@@ -67,25 +77,25 @@ export default {
     },
     updateUser() {
       services.userService.update(
-        this.user._id, 
+        this.user._id,
         {
           $set: {
             username: this.user.username,
-            email: this.user.email,
+            email: this.user.email
           }
         },
         {}
-      )
+      );
     },
-    emitData(data){
-        console.log("clicked me");
-        this.$emit("input", data)
+    emitData(data) {
+      console.log("clicked me");
+      this.$emit("input", data);
     }
   },
 
   async created() {
     await services.client.reAuthenticate();
-    this.user = (await services.client.get('authentication')).user;
+    this.user = (await services.client.get("authentication")).user;
     console.log("user", this.user);
   },
 

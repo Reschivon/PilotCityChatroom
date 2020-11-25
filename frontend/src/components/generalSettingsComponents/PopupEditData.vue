@@ -8,12 +8,21 @@
       <v-card>
         <!-- `` means interpret as string unless esc ${{}} -->
         <!-- => means nested unanmed function aka callback -->
-        <v-card-title class="headline">{{`Edit ${title}`}}</v-card-title>
+        <v-card-title class="headline">{{ `Edit ${title}` }}</v-card-title>
 
         <v-card-text>
           <v-form>
-            <v-text-field :label="`New ${title}`" v-model="dataChange"></v-text-field>
-            <v-btn color="success" @click="emitData(dataChange); isClicked=false">
+            <v-text-field
+              :label="`New ${title}`"
+              v-model="dataChange"
+            ></v-text-field>
+            <v-btn
+              color="success"
+              @click="
+                emitData(dataChange);
+                isClicked = false;
+              "
+            >
               <span>Save</span>
             </v-btn>
           </v-form>
@@ -22,7 +31,7 @@
       </v-card>
     </v-dialog>
   </div>
-</template> 
+</template>
 
 <script>
 //import SettingsContent from "./SettingsContent"

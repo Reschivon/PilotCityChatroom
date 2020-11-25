@@ -19,7 +19,10 @@
       <v-toolbar-title class="ml-5">
         <span class="hidden-sm-and-down">PilotCity</span>
       </v-toolbar-title>
-      <v-toolbar-title class="flex-grow-1 flex-shrink-1 d-flex justify-center" color="red">
+      <v-toolbar-title
+        class="flex-grow-1 flex-shrink-1 d-flex justify-center"
+        color="red"
+      >
         <span class="chat-title">{{ title }}</span>
       </v-toolbar-title>
       <router-link to="/chat">
@@ -43,7 +46,10 @@
         transition="scale-transition"
         width="30"
       />
-      <v-toolbar-title class="flex-grow-1 flex-shrink-1 d-flex justify-center" color="red">
+      <v-toolbar-title
+        class="flex-grow-1 flex-shrink-1 d-flex justify-center"
+        color="red"
+      >
         <span class="chat-title">{{ title }}</span>
       </v-toolbar-title>
       <router-link to="/chat">

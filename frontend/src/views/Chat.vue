@@ -1,7 +1,7 @@
 <template>
   <div class="chat" v-scroll:#chatWindow="scrollToBottom()">
     <Header :room="currentRoom" />
-    <Sidebar v-model="currentRoom" :rooms="rooms" :currentUser="currentUser"/>
+    <Sidebar v-model="currentRoom" :rooms="rooms" :currentUser="currentUser" />
     <!-- @toggleDrawer="drawer != drawer" -->
 
     <!-- Chat window -->
@@ -17,7 +17,9 @@
           :content="message.text"
           :name="userOfId(message.userId).username"
           :timestamp="formatTime(message.createdAt)"
-          :group-with-prev-msg="sameSenderAndTime(message, currentMessages[index - 1])"
+          :group-with-prev-msg="
+            sameSenderAndTime(message, currentMessages[index - 1])
+          "
         />
       </v-container>
     </v-main>
@@ -91,19 +93,21 @@
 </template>
 
 <script>
-import * as services from "../services/index.ts";
+import Vue from "vue";
+import * as services from "@/services";
 import moment from "moment";
 
 import Message from "@/components/Message";
 import Sidebar from "@/components/Sidebar";
-import Header from "@/components/Header";
+import Header from "../components/Header";
 
-export default {
+
+const Chat = Vue.extend({
   name: "Chat",
   components: {
     Message,
     Sidebar,
-    Header
+    Header,
   },
   data: () => {
     return {
@@ -112,7 +116,7 @@ export default {
       newMessage: null,
       colors: {
         green: "#6eba7f"
-      },
+      }
       // Possible field validation for empty text area
       // windowHeight: null,
       // rules: {
@@ -129,21 +133,23 @@ export default {
     },
     currentMessages() {
       console.log("currenting messages");
-      return this.$store.state.messages.filter(message => message.room == this.currentRoom._id?? []);
+      return this.$store.state.messages.filter(
+        message => message.room == this.currentRoom._id ?? []
+      );
     },
     users() {
       return this.$store.state.users;
     },
     rooms() {
       return this.$store.state.rooms;
-    },
+    }
   },
 
   methods: {
     sendMessage() {
       services.messageService.create({
         room: this.currentRoom._id,
-        text: this.newMessage,
+        text: this.newMessage
       });
       this.newMessage = "";
     },
@@ -173,21 +179,21 @@ export default {
       .reAuthenticate()
       .then(auth => {
         console.log(auth);
-        this.$store.dispatch('setCurrentUser', auth.user);
+        this.$store.dispatch("setCurrentUser", auth.user);
       })
       .catch(e => {
         // Prevents users from logging in if unauthenticated
         // this.$router.push({ name: "Auth" });
         console.log(e);
-    });
-    await this.$store.dispatch('fetchRooms');
-    await this.$store.dispatch('fetchUsers');
-    await this.$store.dispatch('fetchMessages');
+      });
+    await this.$store.dispatch("fetchRooms");
+    await this.$store.dispatch("fetchUsers");
+    await this.$store.dispatch("fetchMessages");
 
-    console.log("authentication", await services.client.get('authentication'));
-
+    console.log("authentication", await services.client.get("authentication"));
   }
-};
+});
+export default Chat;
 </script>
 
 <style>

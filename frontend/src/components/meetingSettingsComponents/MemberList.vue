@@ -12,9 +12,16 @@
 
         <v-row>
           <v-col>
-            <v-card-title class="headline ml-2">{{`Edit ${title}`}}</v-card-title>
+            <v-card-title class="headline ml-2">{{
+              `Edit ${title}`
+            }}</v-card-title>
           </v-col>
-          <v-btn class="mt-5 mr-7" color="primary" icon @click="isClicked = false">
+          <v-btn
+            class="mt-5 mr-7"
+            color="primary"
+            icon
+            @click="isClicked = false"
+          >
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-row>
@@ -32,7 +39,9 @@
           ></v-text-field>
           <!-- @value="delimitByComma(searchedMember)" -->
           <div v-for="member in memberData" :key="member.id">
-            <v-container v-if="member.name == searchedMember && !member.isMember">
+            <v-container
+              v-if="member.name == searchedMember && !member.isMember"
+            >
               <!-- member.name == searchedMember               -->
               <v-row no-gutters>
                 <v-col>
@@ -48,8 +57,10 @@
                         />
                       </v-col>
                       <v-col>
-                        <p class="mt-6 member-text">{{`${member.name} ${member.lastName}`}}</p>
-                        <p>{{input}}</p>
+                        <p class="mt-6 member-text">
+                          {{ `${member.name} ${member.lastName}` }}
+                        </p>
+                        <p>{{ input }}</p>
                       </v-col>
                       <v-col cols="2">
                         <v-checkbox v-model="member.isMember"></v-checkbox>
@@ -62,7 +73,7 @@
           </div>
 
           <!-- display true members -->
-          <div v-for="member in memberData" :key="member.id+1">
+          <div v-for="member in memberData" :key="member.id + 1">
             <!--avoids duplicate keys-->
             <v-container v-if="member.isMember">
               <v-row no-gutters>
@@ -79,7 +90,9 @@
                         />
                       </v-col>
                       <v-col>
-                        <p class="mt-6 member-text">{{`${member.name} ${member.lastName}`}}</p>
+                        <p class="mt-6 member-text">
+                          {{ `${member.name} ${member.lastName}` }}
+                        </p>
                       </v-col>
                       <v-col cols="2">
                         <v-checkbox v-model="member.isMember"></v-checkbox>
@@ -100,7 +113,7 @@
       </v-card>
     </v-dialog>
   </div>
-</template> 
+</template>
 
 <script>
 //import SettingsContent from "./SettingsContent"

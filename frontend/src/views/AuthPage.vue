@@ -18,9 +18,9 @@
                       </h1>
                       <v-text-field
                         id="username"
-                        v-model="login"
-                        label="Username"
-                        name="Username"
+                        v-model="email"
+                        label="Email"
+                        name="Email"
                         type="text"
                         :color="bgColor"
                       />
@@ -180,7 +180,7 @@
                       <v-text-field
                         id="login"
                         v-model="login"
-                        label="Username / Email"
+                        label="Email"
                         name="login"
                         type="text"
                         :color="bgColor"
@@ -250,33 +250,28 @@ export default {
     firstname: ""
   }),
   methods: {
-    signup() {
-      services.registerUserEmailPassword(this.email, this.password);
-      services.updateUserDocument({
-        username: this.username,
-        firstname: this.firstname,
-        lastname: this.lastname
-      });
-    },
-    signin() {
-      services.client
-        .authenticate({
-          strategy: "local",
-          username: this.login,
-          password: this.password
-        })
-        .then(auth => {
-          // Logged in
-          this.login = "";
-          this.password = "";
-          console.log(auth);
-        })
-        .catch(e => {
-          // Show login page (potentially with `e.message`)
-          console.error("Authentication error", e);
+    async signup() {
+      try { 
+        await services.registerUserEmailPassword(this.email, this.password, {
+          username: this.username,
+          firstname: this.firstname,
+          lastname: this.lastname,
         });
-      this.$router.push("/chat");
-    }
+
+        this.$router.push("/chat");
+      } catch (e) {
+        console.log("signup error: ", e)
+      }
+    },
+    async signin() {
+      try {
+        await services.loginUserEmailPassword(this.email, this.password);
+
+        this.$router.push("/chat");
+      } catch (e) {
+        console.log("signin error: ", e);
+      }
+    },
   }
 };
 </script>

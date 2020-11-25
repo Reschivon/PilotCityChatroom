@@ -19,8 +19,8 @@ export const userService = client.service("users");
 export const messageService = client.service("messages");
 export const roomService = client.service("rooms");
 
-/* eslint-disable no-unused-vars */
 import * as Realm from "realm-web";
+import bson from "bson";
 // const users = require("./users.ts");
 // const schemas = require("./schemas.ts");
 
@@ -35,26 +35,24 @@ export async function loginUserEmailPassword(email: string, password: string) {
   const credentials = Realm.Credentials.emailPassword(email, password);
   try {
     const user = await app.logIn(credentials);
-    console.log("realm user login: ", user);
+    console.log("loginUserEmailPassword: ", user);
     return user;
   } catch (e) {
-    console.log("failed realm login: ", e);
+    console.log("loginUserEmailPassword error: ", e);
   }
 }
 
-export async function registerUserEmailPassword(
-  email: string,
-  password: string
-) {
+export async function registerUserEmailPassword(email: string, password: string, userData: object) {
   await app.emailPasswordAuth.registerUser(email, password);
   const credentials = Realm.Credentials.emailPassword(email, password);
 
   try {
     const user = await app.logIn(credentials);
-    console.log("user: ", user);
+    console.log("registerUserEmailPassword: ", user);
+    await updateUserDocument(userData);
     return user;
   } catch (e) {
-    console.log("registration error: ", e);
+    console.log("registerUserEmailPassword error: ", e);
   }
 }
 
@@ -62,9 +60,10 @@ export async function updateUserDocument(userData: object) {
   // see https://docs.mongodb.com/realm/web/mongodb/#instantiate-a-mongodb-collection-handle
   const mongo = app.currentUser?.mongoClient("mongodb-atlas");
   const mongoCollection = mongo?.db("chatrooms").collection("users");
-
+  console.log("profile", app.currentUser?.profile.email); 
   try {
-    mongoCollection?.updateOne({_id: app.currentUser?.id}, userData);
+    const result = await mongoCollection?.updateOne({userId: app.currentUser?.id}, { $set: userData });
+    console.log("updateUserDocument: ", result);
   } catch (e) {
     console.log("updateUserDocument error: ", e);
   }

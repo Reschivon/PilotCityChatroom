@@ -233,6 +233,9 @@ export default {
       names.forEach(name => (initials += name.substring(0, 1)));
       return initials;
     }
+  },
+  created() {
+    Rooms.findRooms();
   }
 };
 </script>

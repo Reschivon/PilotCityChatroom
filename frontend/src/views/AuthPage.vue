@@ -205,7 +205,7 @@
 
 <script>
 import Header from "@/components/Header";
-import * as services from "../services/index.ts";
+import * as services from "@/services/index.ts";
 
 export default {
   name: "Auth",
@@ -252,7 +252,7 @@ export default {
   methods: {
     async signup() {
       try { 
-        await services.registerUserEmailPassword(this.email, this.password, {
+        await services.Users.registerUserEmailPassword(this.email, this.password, {
           username: this.username,
           firstname: this.firstname,
           lastname: this.lastname,
@@ -265,7 +265,7 @@ export default {
     },
     async signin() {
       try {
-        await services.loginUserEmailPassword(this.email, this.password);
+        await services.Users.loginUserEmailPassword(this.email, this.password);
 
         this.$router.push("/chat");
       } catch (e) {

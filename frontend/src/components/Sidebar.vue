@@ -67,6 +67,9 @@
       <v-btn class="ml-7" @click="joinRoom('5f1cbbd0ff53b2d78e9965f8')"
         >Join Room</v-btn
       >
+      <v-btn class="ml-7" @click="createRoom('My First Room')"
+        >Create Room</v-btn
+      >
       <p></p>
       <v-subheader>Recent chats</v-subheader>
 
@@ -128,7 +131,8 @@
 </template>
 
 <script>
-import { roomService } from "../services/index.ts";
+import { roomService } from "@/services";
+import { Rooms } from "@/services";
 
 export default {
   name: "Sidebar",
@@ -216,6 +220,9 @@ export default {
         .then(stuff => (response = stuff))
         .catch(e => console.log("update", e));
       console.log("response", response);
+    },
+    async createRoom(roomName) {
+      Rooms.createRoom(roomName);
     },
     updateCurrentRoom(room) {
       this.$store.dispatch("setCurrentRoom", room);

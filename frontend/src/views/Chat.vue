@@ -101,7 +101,6 @@ import Message from "@/components/Message";
 import Sidebar from "@/components/Sidebar";
 import Header from "../components/Header";
 
-
 const Chat = Vue.extend({
   name: "Chat",
   components: {
@@ -153,7 +152,7 @@ const Chat = Vue.extend({
       this.newMessage = "";
     },
     userOfId(id) {
-      return {id: id, username: "tempname"};
+      return { id: id, username: "tempname" };
       // return this.users.filter(user => user._id == id)[0];
     },
     formatTime(time) {

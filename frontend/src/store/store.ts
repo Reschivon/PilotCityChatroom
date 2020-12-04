@@ -2,15 +2,15 @@ import Vue from "vue";
 import Vuex from "vuex";
 import { ObjectId } from "bson";
 import * as services from "@/services/";
-import { Message, Room, UserData } from '@/@types';
+import { Message, Room, UserData } from "@/@types";
 
 Vue.use(Vuex);
 
 export interface State {
-  currentRoom?:  Room,
-  rooms:  Array<Room>,
-  users:  Array<UserData>,
-  messages:  Array<Message>
+  currentRoom?: Room;
+  rooms: Array<Room>;
+  users: Array<UserData>;
+  messages: Array<Message>;
 }
 
 export const store = new Vuex.Store<State>({
@@ -33,8 +33,8 @@ export const store = new Vuex.Store<State>({
     fetchMessages: (state, payload) => {
       state.messages = payload;
     },
-    fetchRoomMessages: (state, payload: { roomId: ObjectId | string, messages: Array<Message>}) => {
-      let room= state.rooms.find(room => room._id == new ObjectId(payload.roomId));
+    fetchRoomMessages: (state, payload: { roomId: ObjectId | string, messages: Array<Message> }) => {
+      let room = state.rooms.find(room => room._id == new ObjectId(payload.roomId));
       if (room) {
         room.messages = payload.messages;
       }
@@ -74,8 +74,8 @@ export const store = new Vuex.Store<State>({
     fetchRoomMessages: async (context, payload: ObjectId | string) => {
       if (context.state.currentRoom) {
         try {
-        let messages = await services.Rooms.findMessages(payload);
-        context.commit("fetchRoomMessages", {roomId: payload, messages: messages})
+          let messages = await services.Rooms.findMessages(payload);
+          context.commit("fetchRoomMessages", { roomId: payload, messages: messages })
         } catch (e) {
           console.log("fetchRoomMessages exception: ", e);
         }

@@ -107,7 +107,7 @@
 </template>
 
 <script>
-import * as services from "@/services"
+import * as services from "@/services";
 
 export default {
   name: "Sidebar",
@@ -142,8 +142,8 @@ export default {
         return {
           _id: room._id,
           icon: room.members.length > 2 ? "mdi-account-group" : "mdi-account",
-          name: room.name,
-        }
+          name: room.name
+        };
       });
     },
     currentRoom() {

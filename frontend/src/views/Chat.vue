@@ -125,15 +125,13 @@ const Chat = Vue.extend({
   },
   computed: {
     currentUser() {
-      return this.$store.state.currentUser;
+      return services.app.currentUser;
     },
     currentRoom() {
       return this.$store.state.currentRoom;
     },
     currentMessages() {
-      let result = this.$store.state.currentRoom?.messages;
-      console.log("currenting messages", result);
-      return result;
+      return this.$store.state.currentRoom?.messages;
     },
     users() {
       return this.$store.state.users;

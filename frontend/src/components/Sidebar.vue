@@ -163,8 +163,7 @@ export default {
       services.Rooms.createRoom(roomName);
     },
     async updateCurrentRoom(roomId) {
-      this.$store.dispatch("setCurrentRoom", roomId);
-      await this.$store.dispatch("fetchRoomMessages", roomId);
+      await this.$store.dispatch("setCurrentRoom", roomId);
     },
     getInitials(fullName) {
       let names = fullName.split(" ");

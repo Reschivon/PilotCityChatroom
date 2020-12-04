@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import { ObjectId } from "bson";
 import * as services from "@/services/";
 import { Message, Room, UserData } from "@/@types";
+import { connect } from 'socket.io-client';
 
 Vue.use(Vuex);
 
@@ -36,17 +37,17 @@ export const store = new Vuex.Store<State>({
     },
     fetchRoomMessages: (state, payload: { roomId: ObjectId | string, messages: Array<Message> }) => {
       let room = state.rooms.find(room => room._id == new ObjectId(payload.roomId));
-      if (room) {
-        room.messages = payload.messages;
-      }
+      if (room) room.messages = payload.messages;
     },
     pushMessage: (state, payload) => {
       state.messages.push(payload as never);
     }
   },
   actions: {
-    setCurrentRoom: (context, payload: ObjectId | string) => {
-      context.commit("setCurrentRoom", context.state.rooms.find(room => room._id == payload) || undefined);
+    setCurrentRoom: async (context, payload: ObjectId | string) => {
+      let room = context.state.rooms.find(room => room._id == new ObjectId(payload)) || undefined;
+      if (room?.messages == undefined) await context.dispatch("fetchRoomMessages", payload);
+      context.commit("setCurrentRoom", room);
     },
     fetchRooms: async context => {
       try {
@@ -72,14 +73,12 @@ export const store = new Vuex.Store<State>({
         console.log("fetchMessages exception: ", e);
       }
     },
-    fetchRoomMessages: async (context, payload: ObjectId | string) => {
-      if (context.state.currentRoom) {
-        try {
-          let messages = await services.Rooms.findMessages(payload);
-          context.commit("fetchRoomMessages", { roomId: payload, messages: messages })
-        } catch (e) {
-          console.log("fetchRoomMessages exception: ", e);
-        }
+    fetchRoomMessages: async (context, payload: ObjectId | string ) => {
+      try {
+        let messages = await services.Rooms.findMessages(payload);
+        context.commit("fetchRoomMessages", { roomId: payload, messages: messages })
+      } catch (e) {
+        console.log("fetchRoomMessages exception: ", e);
       }
     },
     pushMessage: (context, payload) => {

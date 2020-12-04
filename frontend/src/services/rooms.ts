@@ -20,13 +20,13 @@ export async function createRoom(roomName: String) {
     
 }
 
-export async function findRooms() {
+export async function findRooms(): Promise<Array<Room> | undefined> {
     const mongo = services.app.currentUser?.mongoClient("mongodb-atlas");
     const mongoCollection = mongo?.db("chatrooms").collection("rooms");
     try {
         const result = await mongoCollection?.find({});
         console.log("findRooms: ", result);
-        return result;
+        return result as Array<Room>;
     } catch (e) {
         console.log("findRooms error:", e);
     }

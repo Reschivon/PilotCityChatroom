@@ -47,8 +47,8 @@
           </v-list-item-content>
         </template>
         <v-list-item
-          v-for="(child, i) in stakeholders.children"
-          :key="i"
+          v-for="(child, index) in stakeholders.children"
+          :key="index"
           link
           :value="currentRoom"
           @click="updateCurrentRoom(child)"
@@ -63,47 +63,23 @@
       </v-list-group>
 
       <v-divider></v-divider>
-      <p></p>
-      <v-btn class="ml-7" @click="joinRoom('5f1cbbd0ff53b2d78e9965f8')"
-        >Join Room</v-btn
-      >
-      <v-btn class="ml-7" @click="createRoom('My First Room')"
-        >Create Room</v-btn
-      >
-      <p></p>
-      <v-subheader>Recent chats</v-subheader>
-
-      <template
-        v-for="room in recentChats"
-        :keys="room._id"
-        :router-to="room.route"
-      >
-        <v-list-item
-          :key="room._id"
-          link
-          :value="currentRoom"
-          @click="updateCurrentRoom(room)"
+      <div class="my-2">
+        <v-btn class="ml-7" @click="joinRoom('5f1cbbd0ff53b2d78e9965f8')"
+          >Join Room</v-btn
         >
-          <v-list-item-avatar :color="room.individual ? colors.green : null">
-            <span
-              v-if="room.individual"
-              style="width: 100%; align-items: center"
-              >{{ getInitials(room.name) }}</span
-            >
-            <v-icon v-else>{{ room.icon }}</v-icon>
-          </v-list-item-avatar>
-          <v-list-item-content>
-            <v-list-item-title>{{ room.name }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </template>
+      </div>
+      <div class="my-2">
+        <v-btn class="ml-7" @click="createRoom('My First Room')"
+          >Create Room</v-btn
+        >
+      </div>
 
       <v-divider></v-divider>
 
-      <v-subheader>Older chats</v-subheader>
+      <v-subheader>Rooms</v-subheader>
 
       <template
-        v-for="room in olderChats"
+        v-for="room in rooms"
         :keys="room._id"
         :router-to="room.route"
       >
@@ -163,7 +139,13 @@ export default {
   },
   computed: {
     rooms() {
-      return this.$store.state.rooms;
+      return this.$store.state.rooms.map(room => {
+        return {
+          _id: room._id,
+          icon: room.members.length > 2 ? "mdi-account-group" : "mdi-account",
+          name: room.name,
+        }
+      });
     },
     currentRoom() {
       return this.$store.state.currentRoom;
@@ -171,49 +153,13 @@ export default {
     currentUser() {
       return this.$store.state.currentUser;
     },
-    recentChats: function() {
-      // will have to do filter later
-      return (
-        this.rooms
-          /*
-        .filter(room => {
-
-        })
-        */
-          .map(room => {
-            return {
-              _id: room._id,
-              icon: room.users.length > 2 ? "mdi-account-group" : "mdi-account",
-              name: room.name
-            };
-          })
-      );
-    },
-    olderChats: function() {
-      // will have to do filter later
-      return (
-        this.rooms
-          /*
-        .filter(room => {
-
-        })
-        */
-          .map(room => {
-            return {
-              _id: room._id,
-              icon: room.users.length > 2 ? "mdi-account-group" : "mdi-account",
-              name: room.name
-            };
-          })
-      );
-    }
   },
   methods: {
     // temporary method to join a room
     async joinRoom(roomId) {
       let room = await roomService.get(roomId, {});
       console.log("room", room);
-      room.users.push(this.currentUser._id);
+      room.members.push(this.currentUser._id);
       let response = {};
       roomService
         .update(room._id, room, {})
@@ -234,8 +180,5 @@ export default {
       return initials;
     }
   },
-  created() {
-    Rooms.findRooms();
-  }
 };
 </script>

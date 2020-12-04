@@ -1,6 +1,6 @@
 <template>
   <div class="chat" v-scroll:#chatWindow="scrollToBottom()">
-    <Header :room="currentRoom" />
+    <Header :room="currentRoom || {}" />
     <Sidebar v-model="currentRoom" :rooms="rooms" :currentUser="currentUser" />
     <!-- @toggleDrawer="drawer != drawer" -->
 
@@ -11,7 +11,7 @@
     <v-main>
       <v-container class="secondary pl-3 pr-6 mb-n8" id="chatWindow" fluid>
         <Message
-          v-for="(message, index) in currentMessages"
+          v-for="(message, index) in currentMessages || []"
           :key="index"
           :is-owned="message.user == currentUser._id"
           :content="message.content"
@@ -131,8 +131,8 @@ const Chat = Vue.extend({
       return this.$store.state.currentRoom;
     },
     currentMessages() {
-      let result = this.currentRoom?.messages || [];
-      console.log("currenting messages", this.currentRoom);
+      let result = this.$store.state.currentRoom?.messages;
+      console.log("currenting messages", result);
       return result;
     },
     users() {

@@ -79,7 +79,7 @@
       <v-subheader>Rooms</v-subheader>
 
       <template
-        v-for="room in rooms"
+        v-for="room in rooms || []"
         :keys="room._id.toHexString()"
         :router-to="room.route"
       >

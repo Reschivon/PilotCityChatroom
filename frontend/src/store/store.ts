@@ -15,6 +15,7 @@ export interface State {
 
 export const store = new Vuex.Store<State>({
   state: {
+    currentRoom: undefined,
     rooms: [],
     users: [],
     messages: []

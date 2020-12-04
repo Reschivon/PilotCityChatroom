@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 /* eslint-disable no-unused-vars */
 import * as services from "@/services/";
+import { Room } from '@/@types/room';
 
 Vue.use(Vuex);
 
@@ -43,7 +44,7 @@ export const store = new Vuex.Store({
     },
     fetchRooms: async context => {
       try {
-        let rooms = (await services.roomService.find({})).data;
+        let rooms: Array<Room> | undefined = await services.Rooms.findRooms();
         context.commit("fetchRooms", rooms);
       } catch (e) {
         console.log("fetchRooms exception: ", e);

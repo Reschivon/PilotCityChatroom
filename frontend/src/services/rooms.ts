@@ -1,4 +1,4 @@
-import { Room } from '@/@types/room';
+import { Room } from '@/@types';
 import * as services from "@/services";
 
 export async function createRoom(roomName: String) {
@@ -20,11 +20,14 @@ export async function createRoom(roomName: String) {
     
 }
 
+
+
 export async function findRooms(): Promise<Array<Room> | undefined> {
     const mongo = services.app.currentUser?.mongoClient("mongodb-atlas");
     const mongoCollection = mongo?.db("chatrooms").collection("rooms");
+    let roomProjection = {messages: 0}
     try {
-        const result = await mongoCollection?.find({});
+        const result = await mongoCollection?.find({}, roomProjection);
         console.log("findRooms: ", result);
         return result as Array<Room>;
     } catch (e) {

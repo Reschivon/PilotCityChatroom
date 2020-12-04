@@ -1,6 +1,6 @@
 import * as Realm from "realm-web";
 
-import { UserData } from '@/@types/user';
+import { UserData } from '@/@types';
 import * as services from "@/services";
 
 

@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 /* eslint-disable no-unused-vars */
 import * as services from "@/services/";
-import { Room } from '@/@types/room';
+import { Room } from '@/@types';
 
 Vue.use(Vuex);
 

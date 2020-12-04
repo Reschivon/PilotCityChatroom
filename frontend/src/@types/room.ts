@@ -1,6 +1,5 @@
 import bson from "bson";
-
-import { Message } from "@/@types/message"
+import { Message } from "./message";
 
 
 export interface Room {
@@ -8,5 +7,5 @@ export interface Room {
     owner: string,
     members: Array<String>,
     name: string,
-    messages: Array<Message>
+    messages?: Array<Message>
 }

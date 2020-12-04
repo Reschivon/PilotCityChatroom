@@ -1,28 +1,30 @@
 import Vue from "vue";
 import Vuex from "vuex";
-/* eslint-disable no-unused-vars */
+import { ObjectId } from "bson";
 import * as services from "@/services/";
-import { Room } from '@/@types';
+import { Message, Room, UserData } from '@/@types';
 
 Vue.use(Vuex);
 
-export const store = new Vuex.Store({
+export interface State {
+  currentRoom?:  Room,
+  rooms:  Array<Room>,
+  users:  Array<UserData>,
+  messages:  Array<Message>
+}
+
+export const store = new Vuex.Store<State>({
   state: {
-    currentUser: {},
-    currentRoom: {},
     rooms: [],
     users: [],
     messages: []
   },
   getters: {},
   mutations: {
-    setCurrentUser: (state, payload) => {
-      state.currentUser = payload;
-    },
-    setCurrentRoom: (state, payload) => {
+    setCurrentRoom: (state, payload: Room) => {
       state.currentRoom = payload;
     },
-    fetchRooms: (state, payload) => {
+    fetchRooms: (state, payload: Array<Room>) => {
       state.rooms = payload;
     },
     fetchUsers: (state, payload) => {
@@ -31,16 +33,19 @@ export const store = new Vuex.Store({
     fetchMessages: (state, payload) => {
       state.messages = payload;
     },
+    fetchRoomMessages: (state, payload: { roomId: ObjectId | string, messages: Array<Message>}) => {
+      let room= state.rooms.find(room => room._id == new ObjectId(payload.roomId));
+      if (room) {
+        room.messages = payload.messages;
+      }
+    },
     pushMessage: (state, payload) => {
       state.messages.push(payload as never);
     }
   },
   actions: {
-    setCurrentUser: (context, payload) => {
-      context.commit("setCurrentUser", payload);
-    },
-    setCurrentRoom: (context, payload) => {
-      context.commit("setCurrentRoom", payload);
+    setCurrentRoom: (context, payload: ObjectId | string) => {
+      context.commit("setCurrentRoom", context.state.rooms.find(room => room._id == payload) || undefined);
     },
     fetchRooms: async context => {
       try {
@@ -64,6 +69,16 @@ export const store = new Vuex.Store({
         context.commit("fetchMessages", users);
       } catch (e) {
         console.log("fetchMessages exception: ", e);
+      }
+    },
+    fetchRoomMessages: async (context, payload: ObjectId | string) => {
+      if (context.state.currentRoom) {
+        try {
+        let messages = await services.Rooms.findMessages(payload);
+        context.commit("fetchRoomMessages", {roomId: payload, messages: messages})
+        } catch (e) {
+          console.log("fetchRoomMessages exception: ", e);
+        }
       }
     },
     pushMessage: (context, payload) => {

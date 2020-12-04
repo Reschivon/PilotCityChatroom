@@ -80,14 +80,14 @@
 
       <template
         v-for="room in rooms"
-        :keys="room._id"
+        :keys="room._id.toHexString()"
         :router-to="room.route"
       >
         <v-list-item
-          :key="room._id"
+          :key="room._id.toHexString()"
           link
           :value="currentRoom"
-          @click="updateCurrentRoom(room)"
+          @click="updateCurrentRoom(room._id)"
         >
           <v-list-item-avatar :color="room.individual ? colors.green : null">
             <span
@@ -107,8 +107,7 @@
 </template>
 
 <script>
-import { roomService } from "@/services";
-import { Rooms } from "@/services";
+import * as services from "@/services"
 
 export default {
   name: "Sidebar",
@@ -151,27 +150,21 @@ export default {
       return this.$store.state.currentRoom;
     },
     currentUser() {
-      return this.$store.state.currentUser;
+      return services.app.currentUser;
     },
   },
   methods: {
     // temporary method to join a room
     async joinRoom(roomId) {
-      let room = await roomService.get(roomId, {});
-      console.log("room", room);
-      room.members.push(this.currentUser._id);
-      let response = {};
-      roomService
-        .update(room._id, room, {})
-        .then(stuff => (response = stuff))
-        .catch(e => console.log("update", e));
-      console.log("response", response);
+      // TODO: implement this later
+      console.log("joinRoom: ", roomId);
     },
     async createRoom(roomName) {
-      Rooms.createRoom(roomName);
+      services.Rooms.createRoom(roomName);
     },
-    updateCurrentRoom(room) {
-      this.$store.dispatch("setCurrentRoom", room);
+    async updateCurrentRoom(roomId) {
+      this.$store.dispatch("setCurrentRoom", roomId);
+      await this.$store.dispatch("fetchRoomMessages", roomId);
     },
     getInitials(fullName) {
       let names = fullName.split(" ");

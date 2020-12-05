@@ -26,6 +26,14 @@ export const store = new Vuex.Store<State>({
     setCurrentRoom: (state, payload: Room) => {
       state.currentRoom = payload;
     },
+    updateRoom: (state, payload: Room) => {
+      let roomIndex = state.rooms.findIndex(room => room._id.equals(payload._id));
+      if (roomIndex != -1) {
+        Vue.set(state.rooms, roomIndex, payload);
+        if (state.currentRoom?._id.equals(payload._id)) state.currentRoom = payload;
+      }
+      else {state.rooms.push(payload)};
+    },
     fetchRooms: (state, payload: Array<Room>) => {
       state.rooms = payload;
     },
@@ -53,6 +61,9 @@ export const store = new Vuex.Store<State>({
       try {
         let rooms: Array<Room> | undefined = await services.Rooms.findRooms();
         context.commit("fetchRooms", rooms);
+        services.Rooms.watchRooms(change => {
+          store.commit("updateRoom", change.fullDocument as Room);
+        });
       } catch (e) {
         console.log("fetchRooms exception: ", e);
       }

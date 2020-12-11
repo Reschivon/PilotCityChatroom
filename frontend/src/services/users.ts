@@ -40,3 +40,11 @@ export async function updateUserDocument(userData: UserData) {
     console.log("updateUserDocument error: ", e);
   }
 }
+
+export async function logOut() {
+  try {
+    await services.app.currentUser?.logOut();
+  } catch (e) {
+    console.log("logOut error: ", e);
+  }
+}

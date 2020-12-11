@@ -14,7 +14,7 @@
           v-for="(message, index) in currentMessages || []"
           :key="index"
           :is-owned="message.user == currentUser._id"
-          :content="message.content"
+          :content="message.text"
           :name="userOfId(message.user).username"
           :timestamp="formatTime(message.createdAt)"
           :group-with-prev-msg="
@@ -143,14 +143,11 @@ const Chat = Vue.extend({
 
   methods: {
     sendMessage() {
-      services.messageService.create({
-        room: this.currentRoom._id,
-        text: this.newMessage
-      });
+      services.Rooms.sendMessage(this.currentRoom._id, this.newMessage);
       this.newMessage = "";
     },
     userOfId(id) {
-      return { id: id, username: "tempname" };
+      return { id: id, username: id };
       // return this.users.filter(user => user._id == id)[0];
     },
     formatTime(time) {

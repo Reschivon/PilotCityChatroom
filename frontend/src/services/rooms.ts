@@ -66,3 +66,13 @@ export async function watchRooms(callback: (change: { fullDocument: Room }) => v
     }
   }
 }
+
+export async function sendMessage(roomId: ObjectId, text: string) {
+  const user = services.app.currentUser;
+  try {
+    const result = await user?.callFunction("sendMessage", {roomId, text});
+    console.log("sendMessage: ", result);
+  } catch (e) {
+    console.log("sendMessage error: ", e);
+  }
+}

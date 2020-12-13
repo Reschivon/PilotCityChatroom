@@ -1,6 +1,6 @@
 <template>
   <div class="chat" v-scroll:#chatWindow="scrollToBottom()">
-    <Header :room="currentRoom" />
+    <Header :room="currentRoom || {}" />
     <Sidebar v-model="currentRoom" :rooms="rooms" :currentUser="currentUser" />
     <!-- @toggleDrawer="drawer != drawer" -->
 
@@ -11,11 +11,11 @@
     <v-main>
       <v-container class="secondary pl-3 pr-6 mb-n8" id="chatWindow" fluid>
         <Message
-          v-for="(message, index) in currentMessages"
+          v-for="(message, index) in currentMessages || []"
           :key="index"
-          :is-owned="message.userId == currentUser._id"
+          :is-owned="message.user == currentUser._id"
           :content="message.text"
-          :name="userOfId(message.userId).username"
+          :name="userOfId(message.user).username"
           :timestamp="formatTime(message.createdAt)"
           :group-with-prev-msg="
             sameSenderAndTime(message, currentMessages[index - 1])
@@ -101,7 +101,6 @@ import Message from "@/components/Message";
 import Sidebar from "@/components/Sidebar";
 import Header from "../components/Header";
 
-
 const Chat = Vue.extend({
   name: "Chat",
   components: {
@@ -126,16 +125,13 @@ const Chat = Vue.extend({
   },
   computed: {
     currentUser() {
-      return this.$store.state.currentUser;
+      return services.app.currentUser;
     },
     currentRoom() {
       return this.$store.state.currentRoom;
     },
     currentMessages() {
-      console.log("currenting messages");
-      return this.$store.state.messages.filter(
-        message => message.room == this.currentRoom._id ?? []
-      );
+      return this.$store.state.currentRoom?.messages;
     },
     users() {
       return this.$store.state.users;
@@ -147,14 +143,12 @@ const Chat = Vue.extend({
 
   methods: {
     sendMessage() {
-      services.messageService.create({
-        room: this.currentRoom._id,
-        text: this.newMessage
-      });
+      services.Rooms.sendMessage(this.currentRoom._id, this.newMessage);
       this.newMessage = "";
     },
     userOfId(id) {
-      return this.users.filter(user => user._id == id)[0];
+      return { id: id, username: id };
+      // return this.users.filter(user => user._id == id)[0];
     },
     formatTime(time) {
       let formattedTime = moment(time).calendar();
@@ -175,22 +169,13 @@ const Chat = Vue.extend({
   },
   async created() {
     // this.windowHeight = document.getElementById("chatWindow").clientHeight;
-    services.client
-      .reAuthenticate()
-      .then(auth => {
-        console.log(auth);
-        this.$store.dispatch("setCurrentUser", auth.user);
-      })
-      .catch(e => {
-        // Prevents users from logging in if unauthenticated
-        // this.$router.push({ name: "Auth" });
-        console.log(e);
-      });
-    await this.$store.dispatch("fetchRooms");
-    await this.$store.dispatch("fetchUsers");
-    await this.$store.dispatch("fetchMessages");
 
-    console.log("authentication", await services.client.get("authentication"));
+    await this.$store.dispatch("fetchRooms");
+    if (this.$store.state.rooms[0]) {
+      this.$store.dispatch("setCurrentRoom", this.$store.state.rooms[0]);
+    }
+    // await this.$store.dispatch("fetchUsers");
+    // await this.$store.dispatch("fetchMessages");
   }
 });
 export default Chat;

@@ -1,8 +1,9 @@
-import bson from "bson";
+import {ObjectId, Timestamp} from "bson";
 
 
 export interface Message {
+    _id: ObjectId
     user: string,
     content: string,
-    createdAt: bson.Timestamp,
+    createdAt: Timestamp,
 }

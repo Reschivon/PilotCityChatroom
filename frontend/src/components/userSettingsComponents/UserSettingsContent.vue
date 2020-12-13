@@ -20,6 +20,7 @@
     <v-row align="center" justify="center">
       <v-container class="white-border">
         <v-card class="pa-6 accent" width="100%" outlined>
+
           <v-row>
             <p class="setting-subheader ml-3">Username</p>
             <v-col cols="14">
@@ -32,6 +33,7 @@
             </v-col>
           </v-row>
           <p class="setting-information">{{ user.username }}</p>
+
           <v-row>
             <p class="setting-subheader ml-3">Email</p>
             <v-col cols="14">
@@ -43,9 +45,27 @@
             </v-col>
           </v-row>
           <p class="setting-information">{{ user.email }}</p>
-          <p class="setting-subheader">Password</p>
-          <!-- #todo -->
-          <ResetPasswordPopup :email="user.email" />
+
+          <div class="my-2">
+            <p class="setting-subheader">Password</p>
+            <!-- #todo -->
+            <ResetPasswordPopup :email="user.email" />
+          </div>
+
+          <div class="my-2">
+            <p class="setting-subheader">Log Out</p>
+            <ButtonPopupConfirm 
+              buttonClass="font-family-Raleway red accent-2 white--text"
+              buttonText="Log Out"
+              icon="mdi-exit-to-app"
+              :popupOptions="{
+                  title: 'Are you sure you want to log out?',
+                  buttonClass: 'font-family-Raleway red accent-2 white--text',
+                  buttonText: 'Log Out'
+              }"
+              @click="logOut"
+            />
+          </div>
         </v-card>
       </v-container>
     </v-row>
@@ -53,8 +73,9 @@
 </template>
 
 <script>
-import * as services from "../../services/index.ts";
+import * as services from "@/services";
 import Popup from "@/components/generalSettingsComponents/ButtonPopup";
+import ButtonPopupConfirm from "@/components/buttonComponents/ButtonPopupConfirm";
 import PopupEditData from "@/components/generalSettingsComponents/PopupEditData";
 export default {
   //{{ data.myPfp }}
@@ -65,7 +86,7 @@ export default {
         myPfp: "@/assets/pfp.png",
         username: "FlexibleMonsterPoop",
         email: "CodingInterns@pc.net"
-      }
+      },
     };
   },
   methods: {
@@ -92,6 +113,10 @@ export default {
       this.$emit("input", data);
     }
   },
+  async logOut() {
+    await services.Users.logOut();
+    this.$router.push("/auth");
+  },
 
   async created() {
     await services.client.reAuthenticate();
@@ -101,7 +126,8 @@ export default {
 
   components: {
     ResetPasswordPopup: Popup,
-    EditUsername: PopupEditData
+    EditUsername: PopupEditData,
+    ButtonPopupConfirm: ButtonPopupConfirm,
   }
 };
 </script>
